@@ -1,0 +1,63 @@
+[
+    {
+      "name": "ISO 14001",
+      "points": 5,
+      "image": "https://example.com/images/iso14001.png"
+    },
+    {
+      "name": "Energy Star",
+      "points": 3,
+      "image": "https://example.com/images/energy-star.png"
+    },
+    {
+      "name": "Fair Trade",
+      "points": 2,
+      "image": "https://example.com/images/fair-trade.png"
+    },
+    {
+      "name": "EU Ecolabel",
+      "points": 4,
+      "image": "https://example.com/images/eu-ecolabel.png"
+    },
+    {
+      "name": "Rainforest Alliance",
+      "points": 3,
+      "image": "https://example.com/images/rainforest-alliance.png"
+    },
+    {
+      "name": "Forest Stewardship Council",
+      "points": 4,
+      "image": "https://example.com/images/fsc.png"
+    },
+    {
+      "name": "Cradle to Cradle",
+      "points": 5,
+      "image": "https://example.com/images/cradle-to-cradle.png"
+    },
+    {
+      "name": "CarbonNeutral®",
+      "points": 3,
+      "image": "https://example.com/images/carbonneutral.png"
+    },
+    {
+      "name": "Green Seal",
+      "points": 2,
+      "image": "https://example.com/images/green-seal.png"
+    },
+    {
+      "name": "USDA Organic",
+      "points": 3,
+      "image": "https://example.com/images/usda-organic.png"
+    },
+    {
+      "name": "Oeko‑Tex",
+      "points": 2,
+      "image": "https://example.com/images/oeko-tex.png"
+    },
+    {
+      "name": "WaterSense",
+      "points": 2,
+      "image": "https://example.com/images/watersense.png"
+    }
+  ]
+  
