@@ -1,15 +1,29 @@
-import React from "react";
-import "../Css/Header.css";
-import { Link } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
+// src/components/Header.js
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import '../Css/Header.css'
+import { useStateValue } from '../StateProvider'
 
 function Header() {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue()
+  const [keyword, setKeyword] = useState('')
+  const navigate = useNavigate()
+
+  const submitHandler = e => {
+    e.preventDefault()
+    const trimmed = keyword.trim()
+    if (trimmed) {
+      // Navigate to /search?keyword=... (or /search/:keyword if you prefer)
+      navigate(`/search?keyword=${encodeURIComponent(trimmed)}`)
+    } else {
+      navigate('/')
+    }
+  }
 
   const handleLinkClick = () => {
-    // Scroll to the top of the page when the link is clicked
-    window.scrollTo(0, 0, { behavior: "instant" });
-  };
+    // Scroll to top when basket link clicked
+    window.scrollTo(0, 0, { behavior: 'instant' })
+  }
 
   return (
     <div className="header">
@@ -21,31 +35,39 @@ function Header() {
         />
       </Link>
 
-      <div className="header__search">
-        <input className="header__searchInput" type="text" />
-        <img
-          src="../images/search_icon.png"
-          className="header__searchIcon"
-          alt="search"
+      <form className="header__search" onSubmit={submitHandler}>
+        <input
+          className="header__searchInput"
+          type="text"
+          value={keyword}
+          onChange={e => setKeyword(e.target.value)}
+          placeholder="Search products..."
         />
-      </div>
+        <button type="submit" className="header__searchIconBtn">
+          <img
+            src="../images/search_icon.png"
+            className="header__searchIcon"
+            alt="search"
+          />
+        </button>
+      </form>
 
       <div className="header__nav">
-        <Link style={{ textDecoration: "none" }} to="/login">
+        <Link style={{ textDecoration: 'none' }} to="/login">
           <div className="header__option">
             <span className="header__optionLineOne">Hello Guest</span>
             <span className="header__optionLineTwo">Sign In</span>
           </div>
         </Link>
 
-        <Link style={{ textDecoration: "none" }} to="/orders">
+        <Link style={{ textDecoration: 'none' }} to="/orders">
           <div className="header__option">
             <span className="header__optionLineOne">Returns</span>
             <span className="header__optionLineTwo">& Orders</span>
           </div>
         </Link>
 
-        <Link style={{ textDecoration: "none" }} to="/dashboard">
+        <Link style={{ textDecoration: 'none' }} to="/dashboard">
           <div className="header__option">
             <span className="header__optionLineOne">Your</span>
             <span className="header__optionLineTwo">Dashboard</span>
@@ -53,7 +75,7 @@ function Header() {
         </Link>
 
         <Link
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: 'none' }}
           to="/checkout"
           onClick={handleLinkClick}
         >
@@ -70,7 +92,7 @@ function Header() {
         </Link>
       </div>
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header

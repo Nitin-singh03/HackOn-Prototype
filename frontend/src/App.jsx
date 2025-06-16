@@ -29,7 +29,8 @@ import FSubmitted from "./Component/Feedbacksubmitted.jsx";
 
 import ProductDetails from "./Component/ProductDetails.jsx";
 import ProductDetails1 from "./Component/ProductDetails1.jsx";
-import ProductForm from "./pages/ProductForm.jsx"
+import ProductForm from "./pages/ProductForm.jsx";
+import SearchResults from "./Component/SearchResults.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -136,7 +137,7 @@ function App() {
             path="/green"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <Homegreen />
                 <Footer />
@@ -191,6 +192,18 @@ function App() {
                 <Footer />
               </>
             }
+          />
+
+          <Route
+            path="/search" 
+            element={
+              <>
+                <Header />
+                <NavBarg />
+                <SearchResults />
+                <Footer />
+              </>
+            } 
           />
           <Route
             path="/product1"

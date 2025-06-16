@@ -273,3 +273,21 @@ export const getProductById = asyncHandler(async (req, res) => {
     throw new Error("Product not found");
   }
 });
+
+export const getProductsList = asyncHandler(async (req, res) => {
+  const { keyword } = req.query
+
+  // build a case‑insensitive OR query on three fields
+  const filter = keyword
+    ? {
+        $or: [
+          { name:        { $regex: keyword, $options: 'i' } },
+          { category:    { $regex: keyword, $options: 'i' } },
+          { description: { $regex: keyword, $options: 'i' } },
+        ],
+      }
+    : {}
+
+  const products = await Product.find(filter)
+  res.json(products)
+})

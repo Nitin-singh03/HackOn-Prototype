@@ -1,0 +1,168 @@
+/* src/Css/SearchPage.css */
+
+.search-page-container {
+    padding: 1rem;
+    background-color: #f0f2f5;
+}
+
+/* Controls Section */
+.search-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sort-control,
+.filter-control {
+    flex: 1 1 200px;
+}
+
+.sort-control label,
+.filter-control label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.sort-control select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    z-index: 10;
+    position: relative;
+}
+
+.sort-control select option {
+    color: #333;
+    background-color: #fff;
+}
+
+.filter-control .cert-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.filter-control .cert-item {
+    display: flex;
+    align-items: center;
+}
+
+.filter-control .cert-item input {
+    margin-right: 0.5rem;
+}
+
+.filter-control .cert-item label {
+    cursor: pointer;
+    color: #555;
+}
+
+/* Results Section */
+.search-results {
+    padding: 1rem 0;
+}
+
+.search-results .error {
+    color: #d8000c;
+    background-color: #ffd2d2;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Product Card */
+.product-card {
+    background-color: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-link img {
+    width: 100%;
+    object-fit: cover;
+    height: 160px;
+}
+
+.product-link h3 {
+    font-size: 1.1rem;
+    margin: 0.75rem;
+    color: #222;
+}
+
+/* Star Rating */
+.star-rating {
+    margin: 0 0.75rem;
+    font-size: 1rem;
+    color: #ffb400;
+}
+
+/* Description */
+.prod-desc {
+    margin: 0.5rem 0.75rem;
+    color: #555;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+/* Price & Eco Score */
+.price {
+    margin: 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111;
+}
+
+.eco-score {
+    margin: 0.25rem 0.75rem;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #007600;
+}
+
+/* Add to Cart Button */
+.add-cart-btn {
+    margin: 0.75rem;
+    padding: 0.6rem;
+    background-color: #146eb4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-cart-btn:hover {
+    background-color: #0f5a99; }
