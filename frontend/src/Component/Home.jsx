@@ -1,147 +1,104 @@
-// frontend/src/pages/Home.jsx
+// src/components/Home.jsx
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Css/Home.css";
-import Product from "./Product";
-import ImageSlider from "./Imageslider"; // keep your existing slider component
-// import Productbutton/Productbutton1 if still needed elsewhere
+import ImageSlider from "./ImageSlider";
 
-// Utility: chunk array into subarrays of given size
-function chunkArray(arr, size) {
-  const chunks = [];
-  for (let i = 0; i < arr.length; i += size) {
-    chunks.push(arr.slice(i, i + size));
-  }
-  return chunks;
+function ProductCard({ product, onAddToCart }) {
+  const [rating] = useState(() => Math.floor(Math.random() * 5) + 1);
+
+  return (
+    <div className="product-card">
+      {/* Link wraps image + title to go to details page */}
+      <Link to={`/product/${product._id}`} className="product-card__link">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="product-card__image"
+        />
+        <h3 className="product-card__title">{product.name}</h3>
+      </Link>
+
+      {product.brand && (
+        <p className="product-card__brand">By {product.brand}</p>
+      )}
+
+      {product.description && (
+        <p className="product-card__desc">{product.description}</p>
+      )}
+
+      <div className="product-card__info">
+        <span className="product-card__price">
+          ₹{product.price.toFixed(2)}
+        </span>
+        <span className="product-card__rating">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span
+              key={i}
+              className={`star ${i < rating ? "filled" : ""}`}
+            >
+              ★
+            </span>
+          ))}
+        </span>
+      </div>
+
+      <button
+        className="product-card__btn"
+        onClick={() => onAddToCart(product._id)}
+      >
+        Add to Cart
+      </button>
+    </div>
+  );
 }
 
-function Home() {
+export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProducts();
+    (async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get("/api/products");
+        setProducts(data);
+      } catch (err) {
+        setError("Failed to fetch products.");
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
-  const fetchProducts = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const { data } = await axios.get("/api/products");
-      setProducts(data);
-    } catch (err) {
-      console.error("Error fetching products:", err);
-      setError(
-        err.response?.data?.message ||
-          err.message ||
-          "Failed to fetch products"
-      );
-    } finally {
-      setLoading(false);
-    }
+  // now uses React Router navigation
+  const handleAddToCart = (id) => {
+    navigate(`/cart/${id}`);
   };
-
-  // Chunk into rows of 3 items
-  const rows = chunkArray(products, 3);
 
   return (
     <div className="home">
       <div className="home__container">
-        {/* Keep the ImageSlider at top */}
         <ImageSlider />
 
-        {loading ? (
-          <div className="home__loading">Loading products...</div>
-        ) : error ? (
-          <div className="home__error text-red-600">{error}</div>
-        ) : products.length === 0 ? (
-          <div className="home__no-products">No products found.</div>
-        ) : (
-          rows.map((rowProducts, rowIndex) => (
-            <div key={rowIndex} className="home__row">
-              {rowProducts.map((product) => (
-                <div key={product._id} className="home__product-card">
-                  {/* Basic product display */}
-                  <Product
-                    id={product._id}
-                    title={product.name}
-                    price={product.price}
-                    rating={product.rating ?? 0}
-                    image={product.image}
-                    badge_id={0}
-                  />
-                  {/* Detailed info */}
-                  <div className="product-details p-2 bg-white border rounded mt-2">
-                    {product.description && (
-                      <p className="text-sm mb-1">
-                        <strong>Description:</strong> {product.description}
-                      </p>
-                    )}
-                    <p className="text-sm mb-1">
-                      <strong>Category:</strong> {product.category || "-"}
-                    </p>
-                    <p className="text-sm mb-1">
-                      <strong>Brand:</strong> {product.brand || "-"}
-                    </p>
-                    <p className="text-sm mb-1">
-                      <strong>In Stock:</strong> {product.countInStock}
-                    </p>
-                    {Array.isArray(product.materialComposition) &&
-                      product.materialComposition.length > 0 && (
-                        <div className="text-sm mb-1">
-                          <strong>Material Composition:</strong>
-                          <ul className="list-disc list-inside">
-                            {product.materialComposition.map((mc, idx) => (
-                              <li key={idx}>
-                                {mc.name}: {mc.ratio}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    {product.eco && (
-                      <div className="text-sm mb-1">
-                        <strong>Eco Score:</strong> {product.eco.ecoScore} (
-                        Grade: {product.eco.ecoGrade})
-                        <ul className="list-disc list-inside ml-4 mt-1">
-                          <li>Material Score: {product.eco.matScore}</li>
-                          <li>Manufacturing Score: {product.eco.manufScore}</li>
-                          <li>Transport Score: {product.eco.transScore}</li>
-                          <li>Packaging Score: {product.eco.pkgScore}</li>
-                          <li>Bonus Score: {product.eco.bonusScore}</li>
-                          <li>Base Score: {product.eco.baseScore}</li>
-                          <li>Cert Bonus (raw): {product.eco.certBonus}</li>
-                        </ul>
-                      </div>
-                    )}
-                    <p className="text-sm mb-1">
-                      <strong>Recycled Content Ratio:</strong>{" "}
-                      {product.recycledContentRatio}
-                    </p>
-                    <p className="text-sm mb-1">
-                      <strong>Transport Distance:</strong>{" "}
-                      {product.transportDistance}
-                    </p>
-                    <p className="text-sm mb-1">
-                      <strong>Packaging Weight:</strong> {product.packagingWeight}
-                    </p>
-                    {Array.isArray(product.certifications) &&
-                      product.certifications.length > 0 && (
-                        <div className="text-sm mb-1">
-                          <strong>Certifications:</strong>{" "}
-                          {product.certifications.join(", ")}
-                        </div>
-                      )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))
+        {loading && <div className="home__loading">Loading…</div>}
+        {error && <div className="home__error">{error}</div>}
+
+        {!loading && !error && (
+          <div className="home__row">
+            {products.map((p) => (
+              <ProductCard
+                key={p._id}
+                product={p}
+                onAddToCart={handleAddToCart}
+              />
+            ))}
+          </div>
         )}
       </div>
     </div>
   );
 }
-
-export default Home;

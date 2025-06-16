@@ -182,10 +182,10 @@ function App() {
 
           {/* Product Details */}
           <Route
-            path="/product"
+            path="/product/:id"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <ProductDetails />
                 <Footer />

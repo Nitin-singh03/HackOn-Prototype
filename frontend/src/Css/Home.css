@@ -1,20 +1,135 @@
-.home {
-    display: flex;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 2000px;
-  }
-  .home__image {
-    width: 100%;
-    z-index: -1;
-    margin-bottom: -150px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  }
+/* Home.css */
 
-  .home__row {  
-    display: flex; 
-    z-index: 1; 
-    margin-left: 5px;  
-    margin-right: 5px;
-  }
+/* ─── HOME CONTAINER ───────────────────────────────────────────────── */
+
+/* Center the home container and cap its width */
+.home {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 2000px;
+}
+
+/* Inner container takes full width with padding */
+.home__container {
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Loading & error messages */
+.home__loading,
+.home__error {
+  text-align: center;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+/* ─── PRODUCT GRID ─────────────────────────────────────────────────── */
+
+/* Use CSS Grid to auto‑fit cards into as many columns as will fit.
+   Each card is at least 250px wide, but will grow to share the row. */
+.home__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 0.5rem -0.5rem;
+}
+
+/* ─── PRODUCT CARD ─────────────────────────────────────────────────── */
+
+/* Card container */
+.product-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  /* fill the full width of its grid cell */
+  width: 100%;
+  min-height: 450px;
+  box-sizing: border-box;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Product image */
+.product-card__image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+}
+
+/* Title */
+.product-card__title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0.25rem 0;
+}
+
+/* Brand */
+.product-card__brand {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+/* Description: two lines max, then truncate */
+.product-card__desc {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+  height: 2.4em;
+  /* roughly two lines */
+  overflow: hidden;
+}
+
+/* Price + rating row */
+.product-card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.product-card__price {
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+/* Stars */
+.product-card__rating .star {
+  color: #ccc;
+  margin: 0 2px;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.product-card__rating .filled {
+  color: #f5a623;
+}
+
+/* Add to Cart button */
+.product-card__btn {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: center;
+  width: 60%;
+  margin: 0.5rem auto 0;
+  transition: background 0.2s ease;
+}
+
+.product-card__btn:hover {
+  background: #27ae60;
+}
+
+/* ─── RESPONSIVE TWEAKS ─────────────────────────────────────────────── */
+
+/* The grid’s auto-fit/minmax handles responsiveness,
+   so no manual media queries are necessary. */

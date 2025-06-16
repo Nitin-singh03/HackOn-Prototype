@@ -1,25 +1,181 @@
 .homeg {
+  display: block;
+}
+
+.home__containerg {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.home__loadingg,
+.home__errorg {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+/* responsive grid: each card min‑300px, stretch to fill */
+.home__gridg {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+}
+
+.productgreen {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.pg-image {
+  width: 100%;
+  /* new aspect ratio for a taller image */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.pg-title {
+  font-size: 1.25rem;
+  margin: 12px 0 8px;
+}
+
+.pg-desc {
+  font-size: 1rem;
+  color: #555;
+  height: 3em;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+/* info row: price, stars, ecoscore side by side */
+.pg-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 8px;
+}
+
+.pg-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.pg-rating {
+  white-space: nowrap;
+  /* keep stars inline */
+}
+
+.pg-rating .star {
+  color: #ccc;
+  font-size: 1.2rem;
+  margin: 0 1px;
+}
+
+.pg-rating .filled {
+  color: #f5a623;
+}
+
+.pg-ecoscore-small {
+  font-size: 1rem;
+  color: #27ae60;
+  white-space: nowrap;
+}
+
+.pg-btn {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  /* smaller padding */
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  /* slightly smaller text */
+  display: block;
+  /* allow auto‑margin centering */
+  margin: 8px auto 12px;
+  /* vertical margins + auto‑center horizontally */
+  width: auto;
+  /* shrink to content */
+  max-width: 80%;
+  /* optional: don’t let it get too wide on big cards */
+  text-align: center;
+}
+
+.pg-coins {
   display: flex;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 2000px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.home__imageg {
-  width: 100%;
-  z-index: -1;
-  margin-bottom: -150px;
-}
-
-.badge {
-  width: 100%;
-  z-index: 1;
-  margin-bottom: 0;
-}
-
-.home__rowg {
+.coin-item {
   display: flex;
-  /* Remove z-index and margin properties */
-  /* Ensure there are no conflicting styles affecting product size */
+  align-items: center;
+  gap: 6px;
+}
+
+.coin-item img {
+  width: 24px;
+}
+
+.pg-certs {
+  margin-top: auto;
+  /* push to bottom if space */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.pg-cert {
+  background: #27ae60;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.pg-float-overlay {
+  position: fixed;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  pointer-events: none;
+  max-width: 320px;
+}
+
+.pg-bar-container {
+  margin: 6px 0;
+}
+
+.pg-bar-label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.pg-bar {
+  background: #444;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.pg-bar-fill {
+  background: #2ecc71;
+  height: 100%;
+  transition: width 0.8s ease-out;
 }

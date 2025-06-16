@@ -1,122 +1,428 @@
-.whole {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 3rem;
-  padding: 3rem;
-  background-color: #f7f7f7;
-}
+/* Complete CSS: src/Css/ProductDetails.css */
 
-.img {
-  display: flex;
-  align-items: center;
-  max-width: 800px;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.image-slider {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.image-thumbnails {
-  display: flex;
-  flex-direction: column; /* Change to column layout */
-  align-items: center;
-}
-
-.thumbnail {
-  width: 50px;
-  height: 50px;
-  margin: 5px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  transition: border-color 0.3s;
-}
-
-.thumbnail:hover {
-  border-color: #007bff;
-}
-
-.large-image {
-  flex: 2;
-  text-align: center;
-  /* padding-top: 50px; */
-}
-
-.img-desc {
-  padding-right: 50px;
-  max-width: 600px;
-  position: relative;
-  margin-left: auto; /* Move .img-desc to the right */
-}
-
-.img-desc h2 {
-  font-size: 24px;
-  color: #333;
+.pd {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.img-desc p {
-  font-size: 16px;
-  color: #666;
-  margin: 5px 0;
+/* overall grid: 3 columns on large screens */
+.pd--amazon {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 2rem;
+  padding: 2rem 5%;
+  background: #f5f5f5;
 }
 
-.icons {
+/* Order columns: image first, details second, buy box third */
+.pd__col--image {
+  order: 1;
+}
+
+.pd__col--details {
+  order: 2;
+}
+
+.pd__col--buy {
+  order: 3;
+}
+
+/* Responsive adjustments: medium screens (tablet) */
+@media (max-width: 1024px) {
+  .pd--amazon {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Keep buy box last */
+  .pd__col--buy {
+    order: 3;
+  }
+}
+
+/* Small screens: vertical stacking */
+@media (max-width: 768px) {
+  .pd--amazon {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 1rem 2%;
+    gap: 1rem;
+  }
+
+  .pd__col {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* IMAGE COLUMN */
+.pd__col--image {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.pd__image {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+/* DETAILS COLUMN */
+.pd__col--details {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pd__title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.pd__brand,
+.pd__category {
+  color: #555;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.pd__rating {
+  display: flex;
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  margin: 0.5rem 0;
+  flex-wrap: wrap;
+}
+
+.pd__star {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-right: 2px;
+}
+
+.pd__star.filled {
+  color: #f0c14b;
+}
+
+.pd__ratingCount {
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.pd__priceLarge {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.pd__stock {
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.pd__stock.in {
+  color: #007600;
+}
+
+.pd__stock.out {
+  color: #b12704;
+}
+
+.pd__desc {
+  color: #333;
+  line-height: 1.6;
   margin-bottom: 1rem;
 }
 
-.icon {
+/* ECO BREAKDOWN PANEL */
+.pd__panel {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+}
+
+.pd__ecoHeading {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pd__ecoGrade {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+}
+
+/* Eco grade colors */
+.grade-A+ {
+  background: #2e7d32;
+  color: #fff;
+}
+
+.grade-A {
+  background: #388e3c;
+  color: #fff;
+}
+
+.grade-B {
+  background: #f9a825;
+  color: #fff;
+}
+
+.grade-C {
+  background: #ef6c00;
+  color: #fff;
+}
+
+.grade-D {
+  background: #d32f2f;
+  color: #fff;
+}
+
+/* Wrapping boxes for eco metrics */
+.pd__ecoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pd__ecoMetric {
+  flex: 1 1 120px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 0.95rem;
   text-align: center;
-  flex: 1;
 }
 
-.addtocart {
-  background-color: #f0c14b;
-  color: #111;
-  padding: 10px 30px;
-  margin-top: 10px;
-  border: 0;
-  border-radius: 3px;
+/* Subheading */
+.pd__subheading {
+  font-size: 1rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+/* Composition list & Certifications container */
+.pd__comp,
+.pd__certsHorizontal {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.pd__comp li {
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+
+/* Certifications wrapping boxes */
+.pd__certsHorizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.pd__certBox {
+  background: #fff;
+  border: 1px solid #c6d0df;
+  border-radius: 12px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* COINS PANEL */
+.pd__coins {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pd__coinItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  flex: 1 1 120px;
+}
+
+.pd__coinItem img {
+  width: 32px;
+  height: 32px;
+}
+
+.pd__coinCount {
+  font-size: 1.2rem;
   font-weight: bold;
+}
+
+/* AMAZON‑STYLE BUY BOX */
+.amazon-panel {
+  background: #fff;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ap__price {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.ap__subtext {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ap__detailsBtn {
+  background: none;
+  border: none;
+  color: #0066c0;
   cursor: pointer;
-  transition: background-color 0.3s;
+  padding: 0;
+  font-size: 0.9rem;
 }
 
-.addtocart:hover {
-  background-color: #d1ac44;
+.ap__delivery {
+  font-size: 0.9rem;
 }
 
-.img-desc .price {
-  font-size: 24px;
-  color: #ff0000; /* Change color to red or your preferred color */
-  margin: 5px 0;
+.ap__stock {
+  font-weight: bold;
 }
 
-.img-desc .discounted-price {
-  text-decoration: none; /* Remove underline for the discounted price */
+.ap__stock.in {
+  color: #007600;
 }
 
-.img-desc .original-price {
-  text-decoration: line-through; /* Add strikethrough to the original price */
-  margin-left: 5px; /* Add spacing between prices */
-  color: #666; /* Color for the original price */
+.ap__stock.out {
+  color: #b12704;
 }
 
-.img-desc .price:after {
-  content: "(30% off)";
-  margin-left: 5px;
-  color: #333; /* Choose a color for the discount text */
+.ap__qty {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ap__qty label {
+  font-size: 0.9rem;
+}
+
+.ap__qty select {
+  padding: 0.3rem;
+  border: 1px solid #a6a6a6;
+  border-radius: 4px;
+}
+
+.ap__btn {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ap__btn--cart {
+  background: #ffd814;
+  border: 1px solid #fcd200;
+  color: #111;
+}
+
+.ap__btn--cart:hover {
+  background: #f7ca00;
+}
+
+.ap__btn--buy {
+  background: #ff9900;
+  border: 1px solid #e88e00;
+  color: #fff;
+}
+
+.ap__btn--buy:hover {
+  background: #e88e00;
+}
+
+.ap__btn:disabled {
+  background: #e7e9ec;
+  color: #888;
+  border-color: #d5d9d9;
+  cursor: not-allowed;
+}
+
+.ap__infoRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 0.9rem;
+}
+
+.ap__infoLabel {
+  color: #555;
+}
+
+.ap__infoValue {
+  color: #111;
+}
+
+.ap__linkBtn {
+  background: none;
+  border: none;
+  color: #0066c0;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.ap__certs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.ap__cert {
+  background: #f0f4f8;
+  border: 1px solid #c6d0df;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+/* Loading and error states */
+.pd__loading,
+.pd__error {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
 }
