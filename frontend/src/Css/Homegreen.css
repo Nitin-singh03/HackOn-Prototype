@@ -179,3 +179,13 @@
   height: 100%;
   transition: width 0.8s ease-out;
 }
+
+.productgreen a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Optional: highlight on hover */
+.productgreen a:hover .pg-title {
+  text-decoration: underline;
+}

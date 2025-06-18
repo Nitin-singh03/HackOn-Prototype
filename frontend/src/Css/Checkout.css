@@ -1,24 +1,439 @@
-.checkout__ad {
-    width: 100%;
-    margin-bottom: 10px;
-  }
+/* File: src/Css/Checkout.css */
+
+/* Container */
+.checkout {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f5f5f5;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Left section */
+.checkout__left {
+  flex: 0.7;
+  min-width: 300px;
+}
+
+.checkout__backLink {
+  display: inline-block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #007185;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.checkout__backLink:hover {
+  color: #004b75;
+}
+
+.checkout__title {
+  margin: 0 0 20px;
+  font-size: 24px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.checkout__error {
+  color: #b00020;
+  background: #fdd;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Empty cart */
+.checkout__empty {
+  text-align: center;
+  padding: 40px 0;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.checkout__empty h3 {
+  margin-bottom: 10px;
+}
+
+.checkout__empty a {
+  color: #007185;
+  text-decoration: none;
+}
+
+.checkout__empty a:hover {
+  text-decoration: underline;
+}
+
+/* Items list */
+.checkout__items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Right section */
+.checkout__right {
+  flex: 0.3;
+  min-width: 250px;
+}
+
+.checkout__summary {
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  position: sticky;
+  top: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.checkout__summary h3 {
+  margin: 0 0 15px;
+  font-size: 20px;
+}
+
+.checkout__summary p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.checkout__total {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.checkout__placeOrderBtn {
+  width: 100%;
+  background-color: #ffd814;
+  border: 1px solid #fcd200;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.2s;
+}
+
+.checkout__placeOrderBtn:disabled {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.checkout__placeOrderBtn:hover:not(:disabled) {
+  background-color: #f7ca00;
+}
+
+/* CheckoutProduct component */
+.checkoutProduct {
+  display: flex;
+  background: #fff;
+  padding: 15px;
+  border-radius: 4px;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+}
+
+.checkoutProduct__image {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fafafa;
+}
+
+.checkoutProduct__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkoutProduct__title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.checkoutProduct__price {
+  font-size: 16px;
+  color: #b12704;
+}
+
+.checkoutProduct__qty {
+  font-size: 14px;
+}
+
+.checkoutProduct__qty select {
+  margin-left: 5px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.checkoutProduct__removeBtn {
+  align-self: flex-start;
+  background: #f0c14b;
+  border: 1px solid #a88734;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.checkoutProduct__removeBtn:hover {
+  background-color: #e2b33c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .checkout {
-    display: flex;
-    padding: 20px;
-    background-color: white;
-    height: max-content;
+    flex-direction: column;
   }
-  .checkout__title {
-    margin-right: 10px;
-    padding: 10px;
-    border-bottom: 1px solid lightgray;
+
+  .checkout__left,
+  .checkout__right {
+    min-width: 100%;
   }
-  .ecofriendly {
-    color: #62be3a;
-    font-weight: 700;
-    font-size: 20px;
+
+  .checkout__placeOrderBtn {
+    font-size: 14px;
   }
-  .checkout__center {
+
+  .checkoutProduct__image {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Eco grade pill */
+.eco-grade {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+.grade-A\+ {
+  background: #4caf50;
+  color: #fff;
+}
+
+.grade-A {
+  background: #8bc34a;
+  color: #fff;
+}
+
+.grade-B {
+  background: #cddc39;
+}
+
+.grade-C {
+  background: #ffeb3b;
+}
+
+.grade-D {
+  background: #f44336;
+  color: #fff;
+}
+
+/* Coins line */
+.checkoutProduct__coins {
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 12px;
+}
+
+/* Small eco‐score text */
+.checkoutProduct__eco small {
+  font-size: 12px;
+  color: #555;
+}
+
+/* make sure those new bits line up */
+.checkoutProduct__info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+
+/* coin icons */
+.coin-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+/* per-line-item coins */
+.checkoutProduct__coins {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* summary coins row */
+.summary__coins {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+/* Card wrapper */
+.checkoutProduct-card {
+  display: flex;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Image */
+.checkoutProduct-card__image {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Body */
+.checkoutProduct-card__body {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  flex: 1;
+}
+
+/* Title link */
+.checkoutProduct-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 6px;
+}
+
+.checkoutProduct-card__title:hover {
+  color: #007185;
+}
+
+/* Rating */
+.checkoutProduct-card__rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #ff9900;
+}
+
+.checkoutProduct-card__rating .star {
+  margin-right: 2px;
+}
+
+.checkoutProduct-card__rating .star.filled {
+  color: #ff9900;
+}
+
+.checkoutProduct-card__rating small {
+  margin-left: 6px;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+/* Description */
+.checkoutProduct-card__desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+/* Footer row: price/coins on left, qty/remove on right */
+.checkoutProduct-card__footer {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  justify-content: space-between;
+}
+
+/* Price + coins */
+.price-coins {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.price-coins .price {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.price-coins .coins {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.price-coins .coin-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.actions select {
+  padding: 4px;
+  font-size: 0.9rem;
+}
+
+.remove-btn {
+  background: #f0c14b;
+  border: 1px solid #a88734;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #111;
+}
+
+.remove-btn:hover {
+  background: #e2b33a;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 600px) {
+  .checkoutProduct-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .checkoutProduct-card__image {
     width: 100%;
+    height: auto;
+  }
+
+  .checkoutProduct-card__body {
+    align-items: center;
     text-align: center;
   }
+
+  .checkoutProduct-card__footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

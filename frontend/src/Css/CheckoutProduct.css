@@ -1,31 +1,111 @@
+/* Product row container */
 .checkoutProduct {
-    display: flex;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  /* vertically center image + info */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 10px;
+  gap: 20px;
+  /* space between image and info */
+}
+
+/* Product image link & img */
+.checkoutProduct a {
+  text-decoration: none;
+  /* remove underline on all links */
+  color: inherit;
+}
+
+.checkoutProduct__image {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  background-color: #fafafa;
+}
+
+/* Info section laid out inline */
+.checkoutProduct__info {
+  display: flex;
+  align-items: center;
+  /* vertically center title, price, etc */
+  flex-wrap: wrap;
+  gap: 20px;
+  /* spacing between each info item */
+}
+
+/* Title */
+.checkoutProduct__title {
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Price */
+.checkoutProduct__price {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Quantity selector */
+.checkoutProduct__qty {
+  font-size: 14px;
+}
+
+.checkoutProduct__qty select {
+  padding: 4px;
+  margin-left: 5px;
+}
+
+/* Remove button */
+.checkoutProduct__removeBtn {
+  background: #f0c14b;
+  border: 1px solid #a88734;
+  border-radius: 2px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.checkoutProduct__removeBtn:hover {
+  background: #e2b33a;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 600px) {
+  .checkoutProduct {
+    flex-direction: column;
+    text-align: center;
   }
+
   .checkoutProduct__info {
-    padding-left: 20px;
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  .checkoutProduct__info > button {
-    background: #f0c14b;
-    height: 30px;
-    margin-top: 10px;
-    border: 1px solid;
-    border-radius: 3px;
-    margin-top: 10px;
-    border-color: #a88734, #9c7e31, #846a29;
-    color: #111;
-  }
-  .checkoutProduct__image {
-    object-fit: contain;
-    height: 180px;
-    width: 180px;
-  }
-  .checkoutProduct__rating {
-    display: flex;
-  }
-  .checkoutProduct__title {
-    font-size: 17px;
-    font-weight: 800;
-  }
+}
+
+.checkoutProduct__info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  /* make it take full remaining width */
+}
+
+/* Remove button */
+.checkoutProduct__removeBtn {
+  background: #f0c14b;
+  border: 1px solid #a88734;
+  border-radius: 2px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: auto;
+  /* <-- pushes it all the way right */
+}
+
+.checkoutProduct__removeBtn:hover {
+  background: #e2b33a;
+}

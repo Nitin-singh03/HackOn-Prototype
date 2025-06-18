@@ -129,7 +129,25 @@
   background: #27ae60;
 }
 
-/* ─── RESPONSIVE TWEAKS ─────────────────────────────────────────────── */
+.product-card__link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  /* ensure it wraps image + title properly */
+}
 
-/* The grid’s auto-fit/minmax handles responsiveness,
-   so no manual media queries are necessary. */
+/* If you only want the title to highlight on hover */
+.product-card__link:hover .product-card__title {
+  text-decoration: underline;
+}
+
+/* Optional: remove any focus outline (but keep accessibility in mind) */
+.product-card__link:focus {
+  outline: none;
+}
+
+/* Ensure images and titles stay unstyled */
+.product-card__image,
+.product-card__title {
+  display: block;
+}

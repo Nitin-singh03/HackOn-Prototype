@@ -13,7 +13,6 @@ function Header() {
     e.preventDefault()
     const trimmed = keyword.trim()
     if (trimmed) {
-      // Navigate to /search?keyword=... (or /search/:keyword if you prefer)
       navigate(`/search?keyword=${encodeURIComponent(trimmed)}`)
     } else {
       navigate('/')
@@ -85,9 +84,6 @@ function Header() {
               className="header__cartIcon"
               alt="cart"
             />
-            <span className="header__optionLineTwo header__basketCount">
-              {basket?.length}
-            </span>
           </div>
         </Link>
       </div>
