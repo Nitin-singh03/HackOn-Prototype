@@ -21,7 +21,6 @@ export default function CheckoutProduct({
 
   // fake rating for checkout list (or use product.rating if you have it)
   const ratingCount = product.ratingCount ||  Math.floor(Math.random() * 1000) + 50;
-  const rating      = product.rating      ||  Math.floor(Math.random() * 5) + 1;
 
   return (
     <div className="checkoutProduct-card">
@@ -41,7 +40,7 @@ export default function CheckoutProduct({
         {/* Rating */}
         <div className="checkoutProduct-card__rating">
           {Array.from({ length: 5 }).map((_, i) => (
-            <span key={i} className={i < rating ? "star filled" : "star"}>★</span>
+            <span key={i} className={i < product.rating ? "star filled" : "star"}>★</span>
           ))}
           <small>({ratingCount})</small>
         </div>

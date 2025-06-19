@@ -9,7 +9,6 @@ export default function ProductDetails() {
 
   const [product, setProduct] = useState(null);
   const [error, setError]     = useState("");
-  const [rating]              = useState(() => Math.floor(Math.random() * 5) + 1);
   const [ratingCount]         = useState(() =>
     Math.floor(Math.random() * (5000 - 200) + 200)
   );
@@ -121,7 +120,7 @@ export default function ProductDetails() {
 
         <div className="pd__rating">
           {Array.from({ length: 5 }).map((_, i) => (
-            <span key={i} className={`pd__star ${i < rating ? "filled" : ""}`}>
+            <span key={i} className={`pd__star ${i < product.rating ? "filled" : ""}`}>
               ★
             </span>
           ))}

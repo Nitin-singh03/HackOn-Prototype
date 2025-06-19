@@ -12,7 +12,6 @@ function Productgreen({
 }) {
   const [hover, setHover] = useState(false);
   const [pos, setPos]     = useState({ x: 0, y: 0 });
-  const [rating]          = useState(() => Math.floor(Math.random() * 5) + 1);
 
   const { eco, description, certifications = [] } = product;
   const ecoScore = eco?.ecoScore ?? 0;
@@ -63,7 +62,7 @@ function Productgreen({
         <span className="pg-price">₹{product.price.toFixed(2)}</span>
         <div className="pg-rating">
           {Array.from({ length: 5 }).map((_, i) => (
-            <span key={i} className={`star ${i < rating ? "filled" : ""}`}>★</span>
+            <span key={i} className={`star ${i < product.rating ? "filled" : ""}`}>★</span>
           ))}
         </div>
         {/* ECO-SCORE BADGE WITH HOVER HANDLERS */}

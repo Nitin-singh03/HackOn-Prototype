@@ -323,3 +323,53 @@ body {
   background: var(--color-primary-hover);
   transform: translateY(-2px);
 }
+
+/* Star Rating */
+.star-rating {
+  margin: var(--space-sm);
+  font-size: var(--fz-lg);
+  color: var(--color-accent);
+}
+
+.star {
+  margin-right: 2px;
+  color: var(--color-grey);
+}
+
+.star.filled {
+  color: #ffb400;
+}
+
+/* Coin Row */
+.coin-row {
+  display: flex;
+  gap: var(--space-sm);
+  margin: var(--space-sm);
+}
+
+.coin-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.coin-item img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Certificates Boxes */
+.cert-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-sm);
+  margin: var(--space-sm);
+}
+
+.cert-box {
+  background: var(--color-grey);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius);
+  font-size: var(--fz-sm);
+  color: var(--color-text-alt);
+}

@@ -1,4 +1,3 @@
-// src/components/Home.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -6,7 +5,7 @@ import "../Css/Home.css";
 import ImageSlider from "./ImageSlider";
 
 function ProductCard({ product, onAddToCart, adding, added }) {
-  const [rating] = useState(() => Math.floor(Math.random() * 5) + 1);
+  const rating = product.rating ?? 0; // use rating from product data
 
   return (
     <div className="product-card">
@@ -34,10 +33,7 @@ function ProductCard({ product, onAddToCart, adding, added }) {
         </span>
         <span className="product-card__rating">
           {Array.from({ length: 5 }).map((_, i) => (
-            <span
-              key={i}
-              className={`star ${i < rating ? "filled" : ""}`}
-            >
+            <span key={i} className={`star ${i < rating ? "filled" : ""}`}>
               ★
             </span>
           ))}
@@ -52,8 +48,8 @@ function ProductCard({ product, onAddToCart, adding, added }) {
         {adding
           ? "Adding…"
           : added
-            ? "✓ Added!"
-            : "Add to Cart"}
+          ? "✓ Added!"
+          : "Add to Cart"}
       </button>
     </div>
   );
@@ -61,11 +57,10 @@ function ProductCard({ product, onAddToCart, adding, added }) {
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading]   = useState(false);
-  const [error, setError]       = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   // track per-product adding/added state
   const [cartState, setCartState] = useState({}); 
-  // cartState = { [productId]: { adding: bool, added: bool } }
 
   useEffect(() => {
     (async () => {
@@ -82,7 +77,6 @@ export default function Home() {
   }, []);
 
   const handleAddToCart = async (productId) => {
-    // set this product to loading
     setCartState(prev => ({
       ...prev,
       [productId]: { adding: true, added: false }
@@ -94,18 +88,15 @@ export default function Home() {
         qty: 1
       });
 
-      // broadcast to other UI
       window.dispatchEvent(
         new CustomEvent("cartUpdated", { detail: updatedCart })
       );
 
-      // mark as added
       setCartState(prev => ({
         ...prev,
         [productId]: { adding: false, added: true }
       }));
 
-      // clear "added" after a moment
       setTimeout(() => {
         setCartState(prev => ({
           ...prev,
@@ -115,12 +106,10 @@ export default function Home() {
 
     } catch (err) {
       console.error("Add to cart failed:", err);
-      // reset state on error
       setCartState(prev => ({
         ...prev,
         [productId]: { adding: false, added: false }
       }));
-      // optionally you could show an error toast here
     }
   };
 
