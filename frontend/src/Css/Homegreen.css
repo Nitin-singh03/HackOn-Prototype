@@ -189,3 +189,12 @@
 .productgreen a:hover .pg-title {
   text-decoration: underline;
 }
+
+
+/* Only the eco-score badge should receive hover/pointer events */
+.pg-ecoscore-small {
+  display: inline-block;
+  position: relative;
+  cursor: default;
+}
+

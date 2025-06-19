@@ -1,5 +1,3 @@
-// File: src/components/Homegreen.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -13,8 +11,8 @@ function Productgreen({
   added
 }) {
   const [hover, setHover] = useState(false);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [rating] = useState(() => Math.floor(Math.random() * 5) + 1);
+  const [pos, setPos]     = useState({ x: 0, y: 0 });
+  const [rating]          = useState(() => Math.floor(Math.random() * 5) + 1);
 
   const { eco, description, certifications = [] } = product;
   const ecoScore = eco?.ecoScore ?? 0;
@@ -48,12 +46,7 @@ function Productgreen({
   ];
 
   return (
-    <div
-      className="productgreen clickable-card"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onMouseMove={e => setPos({ x: e.clientX, y: e.clientY })}
-    >
+    <div className="productgreen clickable-card">
       {/* IMAGE LINK */}
       <Link to={`/product/${product._id}`}>
         <img src={product.image} alt={product.name} className="pg-image" />
@@ -73,7 +66,13 @@ function Productgreen({
             <span key={i} className={`star ${i < rating ? "filled" : ""}`}>★</span>
           ))}
         </div>
-        <span className="pg-ecoscore-small">
+        {/* ECO-SCORE BADGE WITH HOVER HANDLERS */}
+        <span
+          className="pg-ecoscore-small"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onMouseMove={e => setPos({ x: e.clientX, y: e.clientY })}
+        >
           🌱 {ecoScore} ({ecoGrade})
         </span>
       </div>
@@ -87,12 +86,7 @@ function Productgreen({
         }}
         disabled={adding}
       >
-        { adding
-          ? "Adding…"
-          : added
-            ? "✓ Added!"
-            : "Add to Cart"
-        }
+        { adding ? "Adding…" : added ? "✓ Added!" : "Add to Cart" }
       </button>
 
       <div className="pg-coins">
@@ -141,9 +135,9 @@ function Productgreen({
 }
 
 export default function Homegreen() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading]   = useState(false);
-  const [error, setError]       = useState("");
+  const [products, setProducts]   = useState([]);
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState("");
   const [cartState, setCartState] = useState({});
 
   useEffect(() => {
@@ -162,33 +156,16 @@ export default function Homegreen() {
   }, []);
 
   const handleAddToCart = async (productId) => {
-    setCartState(prev => ({
-      ...prev,
-      [productId]: { adding: true, added: false }
-    }));
+    setCartState(prev => ({ ...prev, [productId]: { adding: true, added: false } }));
     try {
-      const { data: updatedCart } = await axios.post("/api/cart", {
-        productId,
-        qty: 1
-      });
-      window.dispatchEvent(
-        new CustomEvent("cartUpdated", { detail: updatedCart })
-      );
-      setCartState(prev => ({
-        ...prev,
-        [productId]: { adding: false, added: true }
-      }));
+      const { data: updatedCart } = await axios.post("/api/cart", { productId, qty: 1 });
+      window.dispatchEvent(new CustomEvent("cartUpdated", { detail: updatedCart }));
+      setCartState(prev => ({ ...prev, [productId]: { adding: false, added: true } }));
       setTimeout(() => {
-        setCartState(prev => ({
-          ...prev,
-          [productId]: { adding: false, added: false }
-        }));
+        setCartState(prev => ({ ...prev, [productId]: { adding: false, added: false } }));
       }, 1500);
     } catch {
-      setCartState(prev => ({
-        ...prev,
-        [productId]: { adding: false, added: false }
-      }));
+      setCartState(prev => ({ ...prev, [productId]: { adding: false, added: false } }));
     }
   };
 
