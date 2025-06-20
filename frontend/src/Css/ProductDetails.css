@@ -6,13 +6,17 @@
   padding: 0;
 }
 
+.pd-container {
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
 /* overall grid: 3 columns on large screens */
 .pd--amazon {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   gap: 2rem;
   padding: 2rem 5%;
-  background: #f5f5f5;
 }
 
 /* Order columns: image first, details second, buy box third */
@@ -98,16 +102,11 @@
   align-items: center;
   margin: 0.5rem 0;
   flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .pd__star {
-  font-size: 1.1rem;
-  color: #ccc;
   margin-right: 2px;
-}
-
-.pd__star.filled {
-  color: #f0c14b;
 }
 
 .pd__ratingCount {
@@ -156,6 +155,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 0.5rem;
+}
+
+.eco-icon {
+  color: #2e7d32;
 }
 
 .pd__ecoGrade {
@@ -166,7 +170,7 @@
 }
 
 /* Eco grade colors */
-.grade-A+ {
+.grade-A\+ {
   background: #2e7d32;
   color: #fff;
 }
@@ -206,6 +210,10 @@
   padding: 0.5rem;
   font-size: 0.95rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 /* Subheading */
@@ -242,6 +250,9 @@
   padding: 0.4rem 0.8rem;
   font-size: 0.85rem;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 /* COINS PANEL */
@@ -263,9 +274,22 @@
   flex: 1 1 120px;
 }
 
-.pd__coinItem img {
+.coin-icon {
   width: 32px;
   height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.coin-icon.gecko {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+}
+
+.coin-icon.canopy {
+  background: linear-gradient(135deg, #8bc34a, #4caf50);
 }
 
 .pd__coinCount {
@@ -347,7 +371,11 @@
   font-weight: 600;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .ap__btn--cart {
@@ -358,6 +386,7 @@
 
 .ap__btn--cart:hover {
   background: #f7ca00;
+  transform: translateY(-1px);
 }
 
 .ap__btn--buy {
@@ -368,6 +397,7 @@
 
 .ap__btn--buy:hover {
   background: #e88e00;
+  transform: translateY(-1px);
 }
 
 .ap__btn:disabled {
@@ -375,6 +405,7 @@
   color: #888;
   border-color: #d5d9d9;
   cursor: not-allowed;
+  transform: none;
 }
 
 .ap__infoRow {
@@ -416,6 +447,9 @@
   border-radius: 12px;
   font-size: 0.85rem;
   color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 /* Loading and error states */
@@ -425,4 +459,329 @@
   text-align: center;
   font-size: 1.2rem;
   color: #555;
+}
+
+/* RECOMMENDATIONS SECTION */
+.recommendations-section {
+  background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 100%);
+  padding: 3rem 5%;
+  border-top: 3px solid #4caf50;
+}
+
+.rec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.rec-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rec-icon {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.rec-title h2 {
+  font-size: 2.2rem;
+  margin: 0;
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.rec-subtitle {
+  color: #555;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.bonus-coins {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  border: 2px solid #ff9800;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+}
+
+.bonus-text {
+  display: block;
+  font-size: 0.9rem;
+  color: #ef6c00;
+  margin-bottom: 0.25rem;
+}
+
+.bonus-amount {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e65100;
+  line-height: 1;
+}
+
+.bonus-label {
+  font-size: 0.9rem;
+  color: #ef6c00;
+}
+
+.rec-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.alternatives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.alternative-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.alternative-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  border-color: #4caf50;
+}
+
+.alt-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.alt-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.alt-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.alternative-card:hover .alt-image {
+  transform: scale(1.05);
+}
+
+.alt-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.alternative-card:hover .alt-overlay {
+  opacity: 1;
+}
+
+.view-product {
+  background: #4caf50;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.alt-content {
+  padding: 1.5rem;
+}
+
+.alt-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #333;
+  line-height: 1.3;
+}
+
+.alt-rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+}
+
+.alt-rating-text {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.alt-price {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+
+.alt-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.benefit-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.benefit-icon.sustainability {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+}
+
+.benefit-icon.carbon {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+}
+
+.alt-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.carbon-footprint {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.alt-cta {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.alternative-card:hover .alt-cta {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  transform: scale(1.05);
+}
+
+.rec-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+}
+
+.empty-icon {
+  color: #4caf50;
+  margin-bottom: 1rem;
+}
+
+/* Responsive adjustments for recommendations */
+@media (max-width: 768px) {
+  .recommendations-section {
+    padding: 2rem 3%;
+  }
+  
+  .rec-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .rec-title h2 {
+    font-size: 1.8rem;
+  }
+  
+  .alternatives-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .bonus-coins {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .alternative-card {
+    margin: 0 -1rem;
+    border-radius: 12px;
+  }
 }

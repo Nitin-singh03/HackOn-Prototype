@@ -3,11 +3,13 @@ import axios from "axios";
 import "../Css/Checkout.css";
 import CheckoutProduct from "./CheckoutProduct";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
   const [cart, setCart]       = useState({ items: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -112,6 +114,7 @@ export default function Checkout() {
           <button
             className="checkout__placeOrderBtn"
             disabled={cart.items.length === 0}
+            onClick={() => navigate('/payment')}
           >
             Place your Order
           </button>
