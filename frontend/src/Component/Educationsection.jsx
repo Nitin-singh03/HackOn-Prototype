@@ -1,4 +1,3 @@
-// src/components/EducationSection.jsx
 import React, { useState } from "react";
 import "../Css/Educationsection.css";
 
@@ -89,18 +88,74 @@ EcoScore = (ComponentScore × 100) + min(CertificationBonus, 10)
   },
 ];
 
+const certificates = [
+  {
+    title: "Fairtrade International",
+    img: "/images/fairtrade.png",
+    desc: "Products are produced in line with ethical and environmental standards, supporting farmers to tackle climate change challenges.",
+  },
+  {
+    title: "Global Organic Textile Standard",
+    img: "/images/gots.png",
+    desc: "Certifies each step of the organic textile supply chain against strict ecological and social standards.",
+  },
+  {
+    title: "Bluesign",
+    img: "/images/bluesign.png",
+    desc: "Products are responsibly manufactured using safer chemicals and fewer resources, including less energy, in production.",
+  },
+  {
+    title: "Compact by Design",
+    img: "/images/compact.png",
+    desc: "Amazon-developed products remove excess air and water, reducing the carbon footprint of shipping and packaging.",
+  },
+  {
+    title: "Cradle to Cradle Certified",
+    img: "/images/cradle.png",
+    desc: "Made with safer materials and responsible processes; achievement levels include Bronze, Silver, Gold, and Platinum.",
+  },
+  {
+    title: "EPEAT",
+    img: "/images/epeat.png",
+    desc: "Assessed against criteria including energy use and reduced sustainability impact; ratings: Silver and Gold.",
+  },
+  {
+    title: "Responsible Wool Standard",
+    img: "/images/rws.png",
+    desc: "Wool from farms that support animal welfare and responsible land management practices.",
+  },
+  {
+    title: "ECOLOGO",
+    img: "/images/ecologo.png",
+    desc: "Certified products meet standards that can reduce the environmental impact of one or more lifecycle stages.",
+  },
+  {
+    title: "Green Seal",
+    img: "/images/greenseal.png",
+    desc: "Products have reduced climate and environmental impacts at one or more stages of their lifecycle.",
+  },
+  {
+    title: "Plant‑Based Fiber Blended",
+    img: "/images/plantbased.png",
+    desc: "Made with at least 50% plant‑based content and produced in a way that restricts harmful chemicals.",
+  },
+];
+
 export default function EducationSection() {
   const [openIndex, setOpenIndex] = useState(null);
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
   return (
     <section className="education-section">
+      {/* Header */}
       <div className="edu-header">
         <h1>EcoPoints & EcoScore Details</h1>
         <p className="edu-intro">
           In-depth calculations for EcoScore, point accrual, levels, badges, and redemptions.
         </p>
       </div>
+
+      {/* Accordion */}
       <div className="edu-accordion">
         {topics.map((topic, i) => (
           <div className="edu-item" key={i}>
@@ -111,13 +166,27 @@ export default function EducationSection() {
               </span>
             </button>
             <div
-              className={`edu-content ${openIndex === i ? "expanded" : ""}`}
+              className={`edu-content ${openIndex === i ? "expanded" : ""}`} 
               style={{ maxHeight: openIndex === i ? "800px" : "0px" }}
             >
               {topic.content}
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Certificates Section */}
+      <div className="certificates-section">
+        <h2>Certifications & Standards</h2>
+        <div className="cert-grid">
+          {certificates.map((cert, idx) => (
+            <div className="cert-item" key={idx}>
+              <img src={cert.img} alt={cert.title} />
+              <h4>{cert.title}</h4>
+              <p>{cert.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
