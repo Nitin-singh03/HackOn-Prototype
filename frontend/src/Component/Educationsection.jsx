@@ -1,154 +1,124 @@
+// src/components/EducationSection.jsx
 import React, { useState } from "react";
 import "../Css/Educationsection.css";
-import { Link } from "react-router-dom";
 
-function Educationsection() {
-  const [activeIndex, setActiveIndex] = useState(null);
+const topics = [
+  {
+    title: "What is EcoScore?",
+    content: (
+      <>
+        <p>
+          <strong>EcoScore</strong> is a sustainability rating (0–100) quantifying a product's environmental impact.
+        </p>
+        <pre>
+EcoScore = (ComponentScore × 100) + min(CertificationBonus, 10)
+        </pre>
+        <h4>ComponentScore Breakdown</h4>
+        <ul>
+          <li>Material Impact (30%)</li>
+          <li>Manufacturing Emissions (25%)</li>
+          <li>Transportation Emissions (20%)</li>
+          <li>Packaging Sustainability (15%)</li>
+          <li>Sustainability Bonus (10%)</li>
+        </ul>
+        <h4>Certification Bonuses (cap 10 pts)</h4>
+        <table>
+          <thead>
+            <tr><th>Certification</th><th>Pts</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ISO 14001</td><td>+5</td></tr>
+            <tr><td>Energy Star</td><td>+3</td></tr>
+            <tr><td>EU Ecolabel</td><td>+4</td></tr>
+            <tr><td>FSC</td><td>+3</td></tr>
+          </tbody>
+        </table>
+      </>
+    ),
+  },
+  {
+    title: "Earning Green & Tree Points",
+    content: (
+      <>
+        <p>Earn points per ₹100 spent based on EcoScore grade:</p>
+        <table>
+          <thead>
+            <tr><th>Grade</th><th>Green Pts</th><th>Tree Pts</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A+ (90–100)</td><td>15</td><td>15</td></tr>
+            <tr><td>A  (75–89)</td><td>12</td><td>12</td></tr>
+            <tr><td>B  (60–74)</td><td>8</td><td>8</td></tr>
+            <tr><td>C  (40–59)</td><td>4</td><td>4</td></tr>
+            <tr><td>D  (40)</td><td>0</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </>
+    ),
+  },
+  {
+    title: "Levels & Badges",
+    content: (
+      <>
+        <p>Advance by collecting Tree Points:</p>
+        <table>
+          <thead>
+            <tr><th>Level</th><th>TP Range</th><th>Trees Planted</th><th>Badge</th><th>Perks</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Seedling</td><td>0–499</td><td>0</td><td>🌱</td><td>50 GP, ribbon</td></tr>
+            <tr><td>Sapling</td><td>500–999</td><td>1</td><td>🌿</td><td>Early access, 100 GP</td></tr>
+            <tr><td>Young Grove</td><td>1000–1499</td><td>2</td><td>🌳</td><td>Badge frame, +1% boost</td></tr>
+            <tr><td>Forest</td><td>1500–2499</td><td>3</td><td>🌲</td><td>Newsletter, 200 GP</td></tr>
+            <tr><td>Canopy</td><td>2500–3999</td><td>5</td><td>🌴</td><td>5% off monthly</td></tr>
+            <tr><td>Rainforest</td><td>4000–5999</td><td>8</td><td>🌳</td><td>Swag, 300 GP</td></tr>
+          </tbody>
+        </table>
+      </>
+    ),
+  },
+  {
+    title: "Benefits & Redemption",
+    content: (
+      <ul>
+        <li>Green Points → discounts, free shipping, gift cards.</li>
+        <li>Tree Points → real trees (500 TP = 1 tree).</li>
+        <li>Combine both for exclusive bundles and early access.</li>
+      </ul>
+    ),
+  },
+];
 
-  const faqItems = [
-    {
-      question: "Why did we create Greenovation Zone?",
-      answer:
-        "The Amazon Greenovation Zone was created to make it easier for customers to find and buy eco-friendly products. This promotes conscious shopping, reduces environmental impact, enhances the customer experience",
-    },
-    {
-      question: "What criteria are used to certify products as eco-friendly?",
-      answer:
-        "Products are certified as eco-friendly based on criteria like eco-friendly certificates, carbon emissions, material sourcing, recyclability, plastic usage, energy efficiency, water conservation, non-toxicity, and packaging. These certifications are awarded by reputable eco-friendly organizations and verified by Amazon.",
-    },
-    {
-      question:
-        "Can I provide feedback or report any concerns about a product's eco-friendly claims?",
-      answer:
-        "Yes, you can provide feedback and report any concerns about a product's eco-friendly claims. We have a customer feedback system in place to ensure that your opinions and concerns are heard, allowing us to continuously improve the accuracy and reliability of eco-friendly claims within the 'Greenovation Zone.'",
-    },
-    {
-      question:
-      "How does the box returning system work?",
-      answer:
-      "After sufficient number of customers click on the RETURN BOX option and the number of boxes from a specific area cross a pre-decided threshold, a pickup will be scheduled and the customers will be notified about the date and time. They can also check the website to get an idea of how much longer it will take to reach the threshold, thus making the procedure much more transparent.",
-    },
-  ];
-
-  const handleItemClick = (index) => {
-    if (index === activeIndex) {
-      // Clicking the active item again will close it
-      setActiveIndex(null);
-    } else {
-      setActiveIndex(index);
-    }
-  };
-
-  const handleLinkClick = () => {
-    // Scroll to the top of the page when the link is clicked
-    window.scrollTo(0, 0, { behavior: "instant" });
-  };
+export default function EducationSection() {
+  const [openIndex, setOpenIndex] = useState(null);
+  const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <>
-      <div className="bar">
-        <img src="../images/education_bar_image.png" alt="" />
-        <ul>
-          <li>
-            <a href="/green">Home</a>
-          </li>
-          <li>
-            <a href="#EcoCertification">Certificates</a>
-          </li>
-          <li>
-            <a href="#FAQ">FAQS</a>
-          </li>
-        </ul>
-      </div>
-
-      <div className="midse">
-        <h1>Zero Waste Production through Return Box System</h1>
-        <br />
-        <p>
-          Our solution leverages Amazon's existing infrastructure for recycling
-          boxes from returned products. When enough customers choose the "return
-          box" option and a specific region exceeds a set box threshold,
-          scheduled pickups are arranged. Customers receive notifications via
-          the app, website, or SMS/email. Pickup frequency varies by
-          participation. Additionally, post-product delivery, customers can
-          return packaging boxes, promoting sustainability in e-commerce.
-        </p>
-
-        <video width="750" height="500" autoPlay loop>
-          <source src="../images/food_delivery.mp4" type="video/mp4" />
-        </video>
-      </div>
-
-      <div className="leftse">
-        <video width="750" height="500" autoPlay loop>
-          <source src="../images/foldbox.mp4" type="video/mp4" />
-        </video>
-
-        <h1>How to Fold a Box?</h1>
-        <p>
-          Folding a box for convenient storage and future use is a practical
-          skill. Start by laying the box flat on a clean, flat surface. Look for
-          the creased lines on the cardboard, usually marked for easy folding.
-          Gently fold along these lines to bring the sides of the box up,
-          forming the walls. Then, fold in the bottom flaps to create the base.
-          Ensure all edges are aligned neatly for a secure fit. To flatten the
-          box, simply reverse these steps, gently folding it back into a flat
-          shape. The attached video provides a visual guide, making the process
-          even simpler. This way, you can keep your box handy for the next time
-          you need it, ensuring easy and efficient storage.
+    <section className="education-section">
+      <div className="edu-header">
+        <h1>EcoPoints & EcoScore Details</h1>
+        <p className="edu-intro">
+          In-depth calculations for EcoScore, point accrual, levels, badges, and redemptions.
         </p>
       </div>
-      <div className="complete">
-        <div className="Certificate" id="EcoCertification">
-          <img
-            src="../images/Eco Friendly Badge Certifications.png"
-            alt=""
-            width="100%"
-          />
-        </div>
-
-        <div class="smallcer">
-          <img src="../images/edu1.png" alt="" width="100%" />
-        </div>
-        <div class="largecer">
-          <img src="../images/edu2.png" alt="" width="100%" />
-        </div>
-
-        <img
-          src="../images/edu3.png"
-          alt=""
-          width="100%"
-          className="shopprod"
-        />
-
-        <div className="FaqEdu" id="FAQ">
-          <h1>Frequently Asked Questions</h1>
-          {faqItems.map((item, index) => (
-            <div key={index} className="FaqItem">
-              <div
-                className="FaqQuestion"
-                onClick={() => handleItemClick(index)}
-              >
-                <div>{item.question}</div>
-                <span className="AccordionIcon">
-                  {activeIndex === index ? "-" : "+"}
-                </span>
-              </div>
-              {activeIndex === index && (
-                <div className="FaqAnswer">{item.answer}</div>
-              )}
+      <div className="edu-accordion">
+        {topics.map((topic, i) => (
+          <div className="edu-item" key={i}>
+            <button className="edu-toggle" onClick={() => toggle(i)}>
+              <span>{topic.title}</span>
+              <span className={`icon ${openIndex === i ? "open" : ""}`}>
+                {openIndex === i ? "−" : "+"}
+              </span>
+            </button>
+            <div
+              className={`edu-content ${openIndex === i ? "expanded" : ""}`}
+              style={{ maxHeight: openIndex === i ? "800px" : "0px" }}
+            >
+              {topic.content}
             </div>
-          ))}
-        </div>
-
-        <div className="ecofriendimg">
-          <Link style={{ textDecoration: "none" }} to="/green" onClick={handleLinkClick}>
-            <img src="../images/shop eco frinedly.png" alt="" width="100%" />
-          </Link>
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+    </section>
   );
 }
-
-export default Educationsection;
