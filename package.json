@@ -12,7 +12,9 @@
   "description": "",
   "dependencies": {
     "concurrently": "^9.1.2",
-    "lucide-react": "^0.518.0"
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.518.0",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",

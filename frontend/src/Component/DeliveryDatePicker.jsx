@@ -115,9 +115,9 @@ const DeliveryDatePicker = () => {
                           Most Eco-Friendly
                         </div>
                       )}
-                      {slot.is_peak_hour && (
+                      {/* {slot.is_peak_hour && (
                         <div className="peak-badge">Peak Hours</div>
-                      )}
+                      )} */}
                     </div>
                     <div className="slot-details">
                       <div className="emissions">

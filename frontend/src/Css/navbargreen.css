@@ -1,38 +1,368 @@
 .amazon-nav {
-    background-color: #232f3e; /* Background color */
-    color: #ffffff; /* Text color */
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Vertically center the content */
-    padding: 5px 20px; /* Decreased top and bottom padding */
-    font-size: 14px;
-    font-weight: bold;
-    height: 40px; /* Fixed height of the navigation bar */
+  background: #232f3e;
+  color: #ffffff;
+  position: relative;
+  font-size: 13px;
+  font-weight: 400;
+  height: 39px;
+  border-bottom: 1px solid #3a4553;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+  z-index: 1000;
+}
+
+.amazon-nav-container {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 15px;
+}
+
+.amazon-nav-section {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.amazon-nav-list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 1px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.nav-item {
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 8px 9px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  font-weight: 400;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #febd69;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 7px 8px;
+}
+
+.home-link {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 7px 8px;
+}
+
+.home-link:hover {
+  padding: 7px 8px;
+}
+
+.more-dropdown .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #febd69;
+}
+
+/* Glazed Effect for New Features */
+.glazed-item {
+  position: relative;
+}
+
+.glazed-link {
+  background: linear-gradient(135deg, rgba(20, 110, 180, 0.15) 0%, rgba(0, 150, 136, 0.15) 100%);
+  border: 1px solid rgba(20, 110, 180, 0.2);
+  backdrop-filter: blur(5px);
+  box-shadow: 
+    0 2px 8px rgba(20, 110, 180, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  padding: 7px 8px;
+}
+
+.glazed-link:hover {
+  background: linear-gradient(135deg, rgba(20, 110, 180, 0.25) 0%, rgba(0, 150, 136, 0.25) 100%);
+  border-color: rgba(20, 110, 180, 0.4);
+  box-shadow: 
+    0 3px 12px rgba(20, 110, 180, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #febd69;
+  padding: 7px 8px;
+}
+
+.glazed-text {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 500;
+}
+
+.glazed-link:hover .glazed-text {
+  background: linear-gradient(135deg, #febd69 0%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glazed-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  animation: shimmer 4s infinite;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Greenovation Button */
+.popover-trigger-nav {
+  position: relative;
+  display: flex;
+  margin-left: 15px;
+  flex-shrink: 0;
+}
+
+.greenovation-button {
+  background: linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%);
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 2px 8px rgba(45, 212, 191, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.greenovation-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(45, 212, 191, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+}
+
+.button-text {
+  position: relative;
+  z-index: 3;
+}
+
+.button-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  animation: buttonShimmer 3s infinite;
+  z-index: 1;
+}
+
+@keyframes buttonShimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Popover Styles */
+.popover-content-nav {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 250px;
+  margin-top: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 8px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  z-index: 1001;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.95);
+  animation: popoverAppear 0.2s ease forwards;
+}
+
+@keyframes popoverAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popover-triangle {
+  position: absolute;
+  top: -6px;
+  right: 16px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: none;
+  border-right: none;
+  transform: rotate(45deg);
+}
+
+.popover-header {
+  margin-bottom: 8px;
+}
+
+.popover-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0d9488;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.popover-content-nav p {
+  margin: 0 0 14px 0;
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.got-it-button {
+  width: 100%;
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.2);
+}
+
+.got-it-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(13, 148, 136, 0.3);
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+}
+
+.got-it-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .amazon-nav-container {
+    padding: 0 10px;
   }
   
-  .amazon-nav-section {
-    display: flex;
-    align-items: center; /* Vertically center the list and button */
+  .nav-link {
+    padding: 8px 7px;
+    font-size: 12px;
   }
   
+  .nav-link:hover, .glazed-link, .glazed-link:hover, .home-link, .home-link:hover {
+    padding: 7px 6px;
+  }
+  
+  .greenovation-button {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 1024px) {
   .amazon-nav-list {
-    list-style: none;
-    display: flex;
-    margin: 10px;
-    padding: 10px 10px;
+    gap: 0;
   }
   
-  .amazon-nav-list li {
-    margin-right: 20px;
+  .nav-link {
+    padding: 8px 6px;
+    font-size: 11px;
   }
   
-  .amazon-nav a {
-    text-decoration: none;
-    color: #ffffff; /* Text color */
-    transition: color 0.3s;
+  .nav-link:hover, .glazed-link, .glazed-link:hover, .home-link, .home-link:hover {
+    padding: 7px 5px;
   }
   
-  .amazon-nav a:hover {
-    color: #FF9900; /* Change text color on hover */
+  .popover-content-nav {
+    width: 220px;
+    right: -5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .amazon-nav-container {
+    padding: 0 8px;
   }
   
+  .nav-link {
+    padding: 8px 5px;
+    font-size: 10px;
+  }
+  
+  .nav-link:hover, .glazed-link, .glazed-link:hover, .home-link, .home-link:hover {
+    padding: 7px 4px;
+  }
+  
+  .greenovation-button {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+  
+  .popover-content-nav {
+    width: 200px;
+    right: -10px;
+  }
+}
