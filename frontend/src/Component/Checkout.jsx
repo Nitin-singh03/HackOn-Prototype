@@ -3,14 +3,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../Css/Checkout.css";
 import CheckoutProduct from "./CheckoutProduct";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
-  const navigate = useNavigate();
 
   const [cart, setCart]       = useState({ items: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState("");
+  const navigate = useNavigate();
 
   // Fetch cart on mount
   useEffect(() => {

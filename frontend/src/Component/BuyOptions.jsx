@@ -29,7 +29,7 @@ export default function BuyOptions({ items: propItems, coins: propCoins, cost: p
   }, [items, coins, cost]);
 
   const handleBuyNow = () => {
-    navigate('/buy', { state: { items, coins, cost } });
+    navigate('/payment', { state: { items, coins, cost } });
   };
 
   const handleCreateGroup = () => {

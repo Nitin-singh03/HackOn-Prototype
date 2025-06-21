@@ -35,6 +35,7 @@ import ProductDetails from "./Component/ProductDetails.jsx";
 import ProductDetails1 from "./Component/ProductDetails1.jsx";
 import ProductForm from "./pages/ProductForm.jsx";
 import SearchResults from "./Component/SearchResults.jsx";
+import Payment from "./Component/Payment.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -262,6 +263,15 @@ function App() {
                 <NavBarg />
                 <ProductDetails1 />
                 <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path="/payment"
+            element={
+              <>
+                <Payment/>
               </>
             }
           />

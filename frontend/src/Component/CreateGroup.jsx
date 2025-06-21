@@ -1,4 +1,3 @@
-// GroupPurchase.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,10 +7,10 @@ import '../Css/CreateGroup.css'; // adjust path if needed
 
 // Hardcoded joiners data declared outside so reference is stable
 const JOINERS = [
-  { id: 'ftefw67', name: 'John Doe',    avatarUrl: '', location: 'Chennai',   amount: 300, qty: 1 },
-  { id: 'abc1234', name: 'Jane Smith',  avatarUrl: '', location: 'Chennai',    amount: 400, qty: 2 },
-  { id: 'xyz7890', name: 'Bob Lee',     avatarUrl: '', location: 'Chennai',     amount: 500, qty: 1 },
-  { id: 'pqr4567', name: 'Alice Ray',   avatarUrl: '', location: 'Chennai', amount: 1200, qty: 3 }
+  { id: 'ftefw67', name: 'John Doe', avatarUrl: '', location: 'Chennai', amount: 300, qty: 1 },
+  { id: 'abc1234', name: 'Jane Smith', avatarUrl: '', location: 'Chennai', amount: 400, qty: 2 },
+  { id: 'xyz7890', name: 'Bob Lee', avatarUrl: '', location: 'Chennai', amount: 500, qty: 1 },
+  { id: 'pqr4567', name: 'Alice Ray', avatarUrl: '', location: 'Chennai', amount: 1200, qty: 3 }
 ];
 
 export default function GroupPurchase() {
@@ -30,14 +29,20 @@ export default function GroupPurchase() {
   ];
   const demoThreshold = 2000;
 
-  // Use passed state or fallback
-  const initialUser = location.state?.user || demoUser;
-  const itemsInput = Array.isArray(location.state?.items) && location.state.items.length
-    ? location.state.items
-    : demoItems;
+  // Safely extract Gecko & Canopy coin counts
+  const rawCoins = location.state?.coins || {};
+  const initialGeckoCoins = typeof rawCoins === 'number'
+    ? rawCoins
+    : rawCoins.totalGecko ?? 0;
+  const initialCanopyCoins = rawCoins.totalCanopy ?? 0;
+
   const threshold = typeof location.state?.threshold === 'number'
     ? location.state.threshold
     : demoThreshold;
+
+  const itemsInput = Array.isArray(location.state?.items) && location.state.items.length
+    ? location.state.items
+    : demoItems;
 
   // --- State for order details ---
   const [orderItems, setOrderItems] = useState([]);
@@ -50,10 +55,9 @@ export default function GroupPurchase() {
   const [collectiveQty, setCollectiveQty] = useState(0);
   const [groupReady, setGroupReady] = useState(false);
 
-  // Ref for tracking timeouts so we can clear on cleanup
   const timeoutsRef = useRef([]);
 
-  // --- 1. Fetch product details ---
+  // Fetch product details
   useEffect(() => {
     const fetchDetails = async () => {
       setLoadingDetails(true);
@@ -71,7 +75,6 @@ export default function GroupPurchase() {
               qty: it.qty
             });
           } catch {
-            // On error fetching a product, use placeholder with price 0
             details.push({
               productId: it.productId,
               name: `Product ${it.productId}`,
@@ -91,107 +94,84 @@ export default function GroupPurchase() {
     fetchDetails();
   }, [itemsInput]);
 
-  // --- 2. Initialize participants & schedule joiners once after details load ---
+  // Initialize participants & schedule joiners
   useEffect(() => {
-    // Only run when loading finishes and we have orderItems
-    if (loadingDetails) return;
-    if (!orderItems.length) return;
-
-    // Clear any previous timeouts (e.g., if re-running due to initialUser/items change)
+    if (loadingDetails || !orderItems.length) return;
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
 
-    // Compute base amount & qty for initial user
     const baseAmt = orderItems.reduce((sum, it) => sum + it.price * it.qty, 0);
     const baseQty = orderItems.reduce((sum, it) => sum + it.qty, 0);
 
     const initialParticipant = {
-      id: initialUser.id,
-      name: initialUser.name,
-      avatarUrl: initialUser.avatarUrl,
-      location: initialUser.location,
+      id: demoUser.id,
+      name: demoUser.name,
+      avatarUrl: demoUser.avatarUrl,
+      location: demoUser.location,
       amount: baseAmt,
       qty: baseQty
     };
 
-    // Set initial participant
     setParticipants([initialParticipant]);
     setCollectiveTotal(baseAmt);
     setCollectiveQty(baseQty);
     setGroupReady(baseAmt >= threshold);
 
-    // If initial alone meets threshold, skip scheduling
-    if (baseAmt >= threshold) {
-      return;
-    }
+    if (baseAmt >= threshold) return;
 
-    // Schedule joiners in sequence
-    const baseDelays = [2000, 3000, 2000, 2000]; // ms for each joiner
-    // If JOINERS length differs, fallback to 2000ms for extra
+    const baseDelays = [2000, 3000, 2000, 2000];
     const delays = JOINERS.map((_, idx) => baseDelays[idx] ?? 2000);
-
     let cumDelay = 0;
+
     JOINERS.forEach((joiner, idx) => {
       cumDelay += delays[idx];
       const t = setTimeout(() => {
         setParticipants(prev => {
-          // Prevent duplicate if same ID already added
           if (prev.some(p => p.id === joiner.id)) return prev;
-
           const combined = [...prev, joiner];
-          // Recalculate totals
           const totalAmt = combined.reduce((s, p) => s + p.amount, 0);
           const totalQty = combined.reduce((s, p) => s + p.qty, 0);
           setCollectiveTotal(totalAmt);
           setCollectiveQty(totalQty);
-
-          // If threshold now met or exceeded, mark ready.
-          if (totalAmt >= threshold) {
-            setGroupReady(true);
-            // Optionally clear remaining scheduled joiners:
-            // timeoutsRef.current.forEach(clearTimeout);
-          }
+          if (totalAmt >= threshold) setGroupReady(true);
           return combined;
         });
       }, cumDelay);
       timeoutsRef.current.push(t);
     });
 
-    // Cleanup when effect is re-run or component unmounts
     return () => {
       timeoutsRef.current.forEach(clearTimeout);
       timeoutsRef.current = [];
     };
-  // Depend on loadingDetails, orderItems, initialUser.id, threshold:
-  // - loadingDetails: we wait until loading finishes.
-  // - orderItems: when product details change, re-run initialization.
-  // - initialUser.id (or initialUser): if initial user changes, re-init.
-  // - threshold: if threshold changes, re-init and re-check.
-  }, [loadingDetails, orderItems, initialUser.id, threshold]);
+  }, [loadingDetails, orderItems, threshold]);
 
-  // --- Handler to place order ---
+  // Place order
   const handlePlaceOrder = () => {
-    navigate('/buy', {
+    navigate('/payment', {
       state: {
         items: orderItems,
-        coins: { gecko: 20 },
+        coins: {
+          totalGecko: initialGeckoCoins + 20,
+          totalCanopy: initialCanopyCoins
+        },
         freeDelivery: true,
         participants
       }
     });
   };
 
-  const totalCoins = participants.length * 20;
+  const totalGeckoCoins = initialGeckoCoins + 20;
+  const totalCanopyCoins = initialCanopyCoins;
 
-  // --- Render UI ---
+  // Render
   return (
     <div className="gp-container">
-      {/* Participants Panel */}
       <div className="gp-participants-panel">
         <h2 className="gp-heading">Group Participants</h2>
         <AnimatePresence>
           {participants.map((p, i) => {
-            const isInitial = p.id === initialUser.id;
+            const isInitial = p.id === demoUser.id;
             const displayName = isInitial ? 'You' : p.name;
             return (
               <motion.div
@@ -200,8 +180,7 @@ export default function GroupPurchase() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className={`gp-card${isInitial ? ' gp-card-initial' : ''}`}
-              >
+                className={`gp-card${isInitial ? ' gp-card-initial' : ''}`}>
                 <div className="gp-avatar">
                   {p.avatarUrl
                     ? <img src={p.avatarUrl} alt={displayName} className="gp-avatar-img" />
@@ -229,7 +208,6 @@ export default function GroupPurchase() {
         {!groupReady && <p className="gp-waiting">Waiting for participants...</p>}
       </div>
 
-      {/* Order Panel */}
       <div className="gp-order-panel">
         <h2 className="gp-heading">Your Order</h2>
         {loadingDetails ? (
@@ -259,7 +237,8 @@ export default function GroupPurchase() {
               <div className="gp-ready-section">
                 <div className="gp-ready-row"><Truck className="gp-icon" /><span>Free delivery applied</span></div>
                 <div className="gp-ready-row"><span>+20 Gecko coins each</span></div>
-                <div className="gp-ready-row"><span>Total Gecko coins: {totalCoins}</span></div>
+                <div className="gp-ready-row"><span>Your total Gecko coins: 20 + {initialGeckoCoins} = {totalGeckoCoins}</span></div>
+                <div className="gp-ready-row"><span>Your Canopy coins: {totalCanopyCoins}</span></div>
                 <button onClick={handlePlaceOrder} className="gp-button">Place Order</button>
               </div>
             ) : (

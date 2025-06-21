@@ -1,0 +1,565 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Amazon Ember", Arial, sans-serif;
+  background-color: #f3f3f3;
+  color: #0F1111;
+  line-height: 1.4;
+}
+
+/* Header Styles */
+.checkout-header {
+  background-color: #232F3E;
+  border-bottom: 1px solid #ddd;
+  padding: 14px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.amazon-logo {
+  color: #FF9900;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.checkout-text {
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.security-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00C851;
+  font-size: 13px;
+}
+
+.lock-icon {
+  font-size: 16px;
+}
+
+/* Main Container */
+.checkout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.checkout-main {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.checkout-form {
+  padding: 0;
+}
+
+.checkout-sidebar {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+/* Section Styles */
+.payment-section,
+.delivery-section,
+.billing-section {
+  padding: 20px;
+  border-bottom: 1px solid #DDD;
+}
+
+.payment-section:last-child,
+.delivery-section:last-child,
+.billing-section:last-child {
+  border-bottom: none;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #0F1111;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0F1111;
+}
+
+/* Payment Options */
+.payment-options {
+  min-width: 710px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-option {
+  border: 1px solid #D5D9D9;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  transition: all 0.2s ease;
+  align-items: center;
+  gap: 12px;
+}
+
+.payment-option:hover {
+  border-color: #FF9900;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.payment-option.selected {
+  border-color: #FF9900;
+  background-color: #FFF7E6;
+}
+
+.payment-option input[type="radio"] {
+  margin: 0;
+}
+
+.payment-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.payment-subtitle {
+  font-size: 12px;
+  color: #565959;
+}
+
+.card-icons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.card-icon {
+  background-color: #232F3E;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.card-icon.visa {
+  background-color: #1A1F71;
+}
+
+.card-icon.mastercard {
+  background-color: #EB001B;
+}
+
+.card-icon.amex {
+  background-color: #006FCF;
+}
+
+/* Card Form */
+.card-form {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #DDD;
+}
+
+.form-row {
+  margin-bottom: 12px;
+}
+
+.form-row-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #D5D9D9;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.card-input:focus {
+  outline: none;
+  border-color: #FF9900;
+  box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.2);
+}
+
+.card-input.small {
+  max-width: 100px;
+}
+
+/* Date Picker */
+.date-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.date-option {
+  border: 1px solid #D5D9D9;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  background-color: white;
+}
+
+.date-option:hover {
+  border-color: #FF9900;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.date-option.selected {
+  border-color: #FF9900;
+  background-color: #FFF7E6;
+}
+
+.date-day {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.date-shipping {
+  font-size: 12px;
+  color: #00C851;
+  font-weight: 500;
+}
+
+/* Time Slots */
+.time-slots-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #DDD;
+}
+
+.time-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.time-slot {
+  border: 1px solid #D5D9D9;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.time-slot:hover {
+  border-color: #FF9900;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.time-slot.selected {
+  border-color: #FF9900;
+  background-color: #FFF7E6;
+}
+
+.time-slot.eco-friendly {
+  border-color: #00C851;
+  background-color: #F0FFF4;
+}
+
+.time-slot.eco-friendly.selected {
+  border-color: #00C851;
+  background-color: #E8F5E8;
+}
+
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.slot-time {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.eco-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #00C851;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.eco-icon {
+  font-size: 12px;
+}
+
+.peak-badge {
+  background-color: #FF9900;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.slot-details {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #565959;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #565959;
+}
+
+.disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #FFF3CD;
+  border: 1px solid #FFEAA7;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #856404;
+}
+
+.info-icon {
+  font-size: 14px;
+  margin-top: 1px;
+}
+
+/* Billing Address */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.address-form {
+  margin-top: 16px;
+}
+
+.address-input {
+  width: 100%;
+  padding: 12px;  
+  border: 1px solid #D5D9D9;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.address-input:focus {
+  outline: none;
+  border-color: #FF9900;
+  box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.2);
+}
+
+/* Order Summary */
+.order-summary h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.order-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #DDD;
+}
+
+.product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item-details h3 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.item-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #B12704;
+  margin-bottom: 4px;
+}
+
+.item-qty {
+  font-size: 12px;
+  color: #565959;
+}
+
+.price-breakdown {
+  margin-bottom: 20px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.price-row.total {
+  font-weight: 700;
+  font-size: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #DDD;
+  color: #B12704;
+}
+
+/* Place Order Button */
+.place-order-btn {
+  width: 100%;
+  background-color: #FFD814;
+  border: 1px solid #FCD200;
+  border-radius: 20px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.place-order-btn:hover {
+  background-color: #F7CA00;
+  border-color: #F2C200;
+}
+
+.place-order-btn:active {
+  background-color: #F0B800;
+}
+
+.order-disclaimer {
+  font-size: 11px;
+  color: #565959;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.order-disclaimer a {
+  color: #0066C0;
+  text-decoration: none;
+}
+
+.order-disclaimer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .checkout-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px;
+  }
+  
+  .header-container {
+    padding: 0 10px;
+  }
+  
+  .amazon-logo {
+    font-size: 24px;
+  }
+  
+  .date-picker {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row-split {
+    grid-template-columns: 1fr;
+  }
+  
+  .slot-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .slot-details {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .checkout-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-section,
+  .delivery-section,
+  .billing-section {
+    padding: 15px;
+  }
+  
+  .checkout-sidebar {
+    padding: 15px;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .product-image {
+    align-self: center;
+  }
+}

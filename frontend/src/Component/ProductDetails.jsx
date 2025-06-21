@@ -224,14 +224,14 @@ export default function ProductDetails() {
         {/* COINS PANEL */}
         <section className="pd__coins pd__panel">
           <div className="pd__coinItem">
-            <img src="/images/gecko_coin.png" alt="Gecko Coin" />
+            <img className="img" src="/images/gecko_coin.png" alt="Gecko Coin" />
             <div>
               <span className="pd__coinCount">{totalGeckoSingle}</span>
               <small>Gecko Coins ({per100.gecko}% per ₹100 each)</small>
             </div>
           </div>
           <div className="pd__coinItem">
-            <img src="/images/canopy_coin.png" alt="Canopy Coin" />
+            <img className="img" src="/images/canopy_coin.png" alt="Canopy Coin" />
             <div>
               <span className="pd__coinCount">{totalCanopySingle}</span>
               <small>Canopy Coins ({per100.canopy}% per ₹100 each)</small>
