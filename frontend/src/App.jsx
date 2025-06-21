@@ -30,6 +30,8 @@ import BuyOptions from "./Component/BuyOptions.jsx";
 import JoinGroup from "./Component/JoinGroup.jsx";
 import CreateGroup from "./Component/CreateGroup.jsx";
 import GroupPurchase from "./Component/CreateGroup.jsx";
+import RedeemPage from "./Component/RedeemPage.jsx";
+import ReturnPackage from "./Component/ReturnPackage.jsx";
 
 import ProductDetails from "./Component/ProductDetails.jsx";
 import ProductDetails1 from "./Component/ProductDetails1.jsx";
@@ -72,12 +74,46 @@ function App() {
             }
           />
           <Route
+            path="/return"
+            element={
+              <>
+                <Headergreen />
+                <NavBarg />
+                <ReturnPackage />
+                <Footer />
+              </>
+            }
+          />
+          
+          <Route
+            path="/redeem"
+            element={
+              <>
+                <Headergreen />
+                <NavBarg />
+                <RedeemPage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
             path="/group-purchase"
             element={
               <>
                 <Headergreen />
                 <NavBarg />
                 <GroupPurchase />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                <Headergreen />
+                <NavBarg />
+                <Dashboard />
                 <Footer />
               </>
             }
@@ -217,16 +253,6 @@ function App() {
                 <NavBar />
                 <Home />
                 <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <>
-                <Header />
-                <NavBarg />
-                <Dashboard />
               </>
             }
           />

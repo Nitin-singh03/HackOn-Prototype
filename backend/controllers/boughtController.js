@@ -48,3 +48,31 @@ export const createBoughtRecord = async (req, res) => {
     return res.status(500).json({ error: err.message || 'Server error while recording purchase.' });
   }
 };
+
+export const getFullBoughtList = async (req, res) => {
+  try {
+    // Fetch all records
+    const records = await Bought.find({}, {
+      'items.productId': 1,
+      'items.qty': 1,
+      'coins.totalGecko': 1,
+      'coins.totalCanopy': 1,
+      _id: 0
+    }).lean();
+
+    // Flatten items with associated coins
+    const fullList = records.flatMap(rec =>
+      rec.items.map(item => ({
+        productId: item.productId,
+        qty: item.qty,
+        totalGecko: rec.coins.totalGecko,
+        totalCanopy: rec.coins.totalCanopy
+      }))
+    );
+
+    return res.status(200).json(fullList);
+  } catch (err) {
+    console.error('🔥 Error fetching full bought list:', err);
+    return res.status(500).json({ error: err.message || 'Server error.' });
+  }
+};

@@ -126,8 +126,8 @@ export default function ProductDetails() {
       }
     ];
     const coinsPayload = {
-      gecko: totalGecko,
-      canopy: totalCanopy,
+      totalGecko: totalGecko,
+      totalCanopy: totalCanopy,
     };
 
     setBuying(true);

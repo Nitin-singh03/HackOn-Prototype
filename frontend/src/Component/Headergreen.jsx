@@ -62,9 +62,6 @@ function Header() {
               className="header__cartIcong"
               alt="cart"
             />
-            <span className="header__optionLineTwo header__basketCount">
-              {basket?.length}
-            </span>
           </div>
         </Link>
       </div>

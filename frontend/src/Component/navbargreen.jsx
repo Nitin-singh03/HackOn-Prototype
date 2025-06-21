@@ -24,8 +24,11 @@ const AmazonNavigationBarg = () => {
           <Link style={{textDecoration: 'none'}} to = "/education">
           <li><a href="#" style={{ color: '#146eb4' }}>Educational Section</a></li>
           </Link>
-          <Link style={{textDecoration: 'none'}} to = "/sustainability">
-          <li><a href="#" style={{ color: '#146eb4' }}>Sustainability Reports</a></li>
+          <Link style={{textDecoration: 'none'}} to = "/redeem">
+          <li><a href="#" style={{ color: '#146eb4' }}>Redeem Coins</a></li>
+          </Link>
+          <Link style={{textDecoration: 'none'}} to = "/return">
+          <li><a href="#" style={{ color: '#146eb4' }}>Return packaging box</a></li>
           </Link>
           <li><a href="#">More</a></li>
 

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "../Css/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 
-// If your image is in `src/images`, you may import it instead of using a relative string path.
-// import AmazonLogo from "../images/amazon_black.jpg";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -15,15 +14,12 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!email || !password) {
       setError("Please enter both email and password.");
       return;
     }
 
     try {
-      // TODO: Replace this with your actual authentication call.
-      // Here's a fake example:
       const success = await fakeAuth(email, password);
       if (success) {
         // On successful login, navigate to the home page or dashboard

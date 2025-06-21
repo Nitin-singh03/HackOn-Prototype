@@ -3,7 +3,7 @@ import '../Css/ImageSlider.css';
 
 function ImageSlider() {
   const imgs = [
-    { id: 0, value: '../images/prime_ad_slider.jpg' },
+    { id: 0, value: '../images/carousel_3.jpg' },
     { id: 1, value: '../images/carousel_4.jpg' },
     { id: 2, value: '../images/carousel_5.jpg' },
     { id: 3, value: '../images/carousel_2.jpg' },
