@@ -91,7 +91,7 @@ export default function Payment() {
 
   return (
     <div className="App">
-      <CheckoutHeader />
+      {/* <CheckoutHeader /> */}
       <div className="checkout-container">
         <div className="checkout-main">
           <div className="checkout-form">

@@ -214,7 +214,7 @@ function App() {
             element={
               <>
                 <Header />
-                <NavBar />
+                <NavBarg />
                 <Home />
                 <Footer />
               </>
@@ -271,6 +271,8 @@ function App() {
             path="/payment"
             element={
               <>
+                <Header />
+                <NavBarg />
                 <Payment/>
               </>
             }

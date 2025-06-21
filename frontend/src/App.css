@@ -117,7 +117,6 @@ h3 {
 
 /* Payment Options */
 .payment-options {
-  min-width: 710px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -129,9 +128,9 @@ h3 {
   padding: 16px;
   cursor: pointer;
   display: flex;
+  align-items: flex-start;
   transition: all 0.2s ease;
-  align-items: center;
-  gap: 12px;
+  background-color: white;
 }
 
 .payment-option:hover {
@@ -144,8 +143,8 @@ h3 {
   background-color: #FFF7E6;
 }
 
-.payment-option input[type="radio"] {
-  margin: 0;
+.payment-info {
+  flex: 1;
 }
 
 .payment-title {
@@ -178,7 +177,7 @@ h3 {
   background-color: #1A1F71;
 }
 
-.card-icon.mastercard {
+.card-icon.mc {
   background-color: #EB001B;
 }
 
