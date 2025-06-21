@@ -26,6 +26,10 @@ import Submitted from "./Component/Submitted.jsx";
 import Dashboard from "./Component/Dashboard.jsx";
 import Feedback from "./Component/feedback.jsx";
 import FSubmitted from "./Component/Feedbacksubmitted.jsx";
+import BuyOptions from "./Component/BuyOptions.jsx";
+import JoinGroup from "./Component/JoinGroup.jsx";
+import CreateGroup from "./Component/CreateGroup.jsx";
+import GroupPurchase from "./Component/CreateGroup.jsx";
 
 import ProductDetails from "./Component/ProductDetails.jsx";
 import ProductDetails1 from "./Component/ProductDetails1.jsx";
@@ -62,6 +66,40 @@ function App() {
                 <Headergreen />
                 <NavBarg />
                 <Feedback />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/group-purchase"
+            element={
+              <>
+                <Headergreen />
+                <NavBarg />
+                <GroupPurchase />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/join-group"
+            element={
+              <>
+                <Headergreen />
+                <NavBarg />
+                < JoinGroup/>
+                <Footer />
+              </>
+            }
+          />
+          
+          <Route
+            path="/create-group"
+            element={
+              <>
+                <Headergreen />
+                <NavBarg />
+                <CreateGroup />
                 <Footer />
               </>
             }
@@ -129,6 +167,17 @@ function App() {
                 <Headergreen />
                 <NavBarg />
                 <EducationSection />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/buyOptions"
+            element={
+              <>
+                <Headergreen />
+                <NavBarg />
+                <BuyOptions />
                 <Footer />
               </>
             }

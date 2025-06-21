@@ -15,6 +15,8 @@ export default function ProductDetails() {
   const [qty, setQty]         = useState(1);
   const [adding, setAdding]   = useState(false);
   const [added, setAdded]     = useState(false);
+  // New state for buy-now "navigation" loading / error (optional)
+  const [buying, setBuying]   = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -31,6 +33,7 @@ export default function ProductDetails() {
   if (error)    return <div className="pd__error">{error}</div>;
   if (!product) return <div className="pd__loading">Loading…</div>;
 
+  // Destructure product fields
   const {
     name,
     image,
@@ -51,12 +54,14 @@ export default function ProductDetails() {
     } = {}
   } = product;
 
+  // Eco grade calculation
   const ecoGrade =
     ecoScore >= 90 ? "A+" :
     ecoScore >= 75 ? "A"  :
     ecoScore >= 60 ? "B"  :
     ecoScore >= 40 ? "C"  : "D";
 
+  // Percentage per ₹100 for coins
   const per100 = {
     gecko:
       ecoScore >= 90 ? 15 :
@@ -70,9 +75,13 @@ export default function ProductDetails() {
       ecoScore >= 40 ? 4  : 0,
   };
 
-  const totalGecko  = Math.floor((price * per100.gecko)  / 100);
-  const totalCanopy = Math.floor((price * per100.canopy) / 100);
+  // Compute coins for single unit and scaled by qty
+  const totalGeckoSingle = Math.floor((price * per100.gecko) / 100);
+  const totalCanopySingle = Math.floor((price * per100.canopy) / 100);
+  const totalGecko = totalGeckoSingle * qty;
+  const totalCanopy = totalCanopySingle * qty;
 
+  // Shipping & delivery display
   const shippingFee = 28.44;
   const deliveryDate = new Date();
   deliveryDate.setDate(deliveryDate.getDate() + 2);
@@ -80,6 +89,7 @@ export default function ProductDetails() {
     month: "long", day: "numeric"
   });
 
+  // Add to cart remains unchanged
   const addToCart = async () => {
     if (countInStock === 0) return;
     try {
@@ -103,6 +113,29 @@ export default function ProductDetails() {
     } finally {
       setAdding(false);
     }
+  };
+
+  // Updated handleBuyNow: navigate to BuyOptions page with state
+  const handleBuyNow = () => {
+    if (countInStock === 0) return;
+    // Build items array and coins object
+    const itemsPayload = [
+      {
+        productId: id,
+        qty,
+      }
+    ];
+    const coinsPayload = {
+      gecko: totalGecko,
+      canopy: totalCanopy,
+    };
+
+    setBuying(true);
+    // Navigate to the BuyOptions (or CommunityBuyOptions) page
+    navigate('/buyOptions', { state: { items: itemsPayload, coins: coinsPayload } });
+    // Optionally, if you want to show a loading indicator briefly, you can reset buying after navigation:
+    // But React Router navigation is synchronous here; you may not need setBuying state.
+    setBuying(false);
   };
 
   return (
@@ -193,17 +226,24 @@ export default function ProductDetails() {
           <div className="pd__coinItem">
             <img src="/images/gecko_coin.png" alt="Gecko Coin" />
             <div>
-              <span className="pd__coinCount">{totalGecko}</span>
-              <small>Gecko Coins ({per100.gecko}% per ₹100)</small>
+              <span className="pd__coinCount">{totalGeckoSingle}</span>
+              <small>Gecko Coins ({per100.gecko}% per ₹100 each)</small>
             </div>
           </div>
           <div className="pd__coinItem">
             <img src="/images/canopy_coin.png" alt="Canopy Coin" />
             <div>
-              <span className="pd__coinCount">{totalCanopy}</span>
-              <small>Canopy Coins ({per100.canopy}% per ₹100)</small>
+              <span className="pd__coinCount">{totalCanopySingle}</span>
+              <small>Canopy Coins ({per100.canopy}% per ₹100 each)</small>
             </div>
           </div>
+          {qty > 1 && (
+            <div style={{ marginTop: "0.5rem" }}>
+              <small>
+                For quantity {qty}: total Gecko Coins = {totalGecko}, total Canopy Coins = {totalCanopy}
+              </small>
+            </div>
+          )}
         </section>
       </div>
 
@@ -253,9 +293,12 @@ export default function ProductDetails() {
         <button
           className="ap__btn ap__btn--buy"
           disabled={countInStock === 0}
-          onClick={() => navigate(`/checkout/${id}?qty=${qty}`)}
+          onClick={handleBuyNow}
         >
-          Buy Now
+          { buying
+            ? "Processing…"
+            : "Buy Now"
+          }
         </button>
 
         {error && <div className="pd__error">{error}</div>}

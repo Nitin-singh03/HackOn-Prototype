@@ -1,0 +1,430 @@
+/* src/Css/GroupPurchase.css */
+
+/* ==== Variables (you can adjust these to fit your theme) ==== */
+:root {
+    --gp-bg-light: #f3f4f6;
+    --gp-panel-bg: #ffffff;
+    --gp-border-light: #e5e7eb;
+    --gp-text-default: #111827;
+    --gp-text-secondary: #6b7280;
+    --gp-text-accent: #10b981;
+    --gp-text-coin: #ca8a04;
+    --gp-card-bg: #ffffff;
+    --gp-card-hover-shadow: rgba(0, 0, 0, 0.15);
+    --gp-card-shadow: rgba(0, 0, 0, 0.1);
+    --gp-primary: #10b981;
+    --gp-primary-hover: #059669;
+    --gp-ready-bg: #ecfdf5;
+    /* light green background when ready */
+    --gp-initial-border: #3b82f6;
+    /* blue border for “You” card */
+    --gp-animation-duration: 0.3s;
+}
+
+/* ==== Container: stacked on small, two-column on medium+ ==== */
+.gp-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--gp-bg-light);
+}
+
+/* Two-column layout on wider screens */
+@media (min-width: 768px) {
+    .gp-container {
+        flex-direction: row;
+    }
+}
+
+/* ==== Participants panel (left) ==== */
+.gp-participants-panel {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background-color: var(--gp-bg-light);
+    /* optional: make header sticky */
+    display: flex;
+    flex-direction: column;
+}
+
+.gp-participants-panel .gp-heading {
+    position: sticky;
+    top: 0;
+    background: var(--gp-bg-light);
+    z-index: 10;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* ==== Order panel (right) ==== */
+.gp-order-panel {
+    flex: 1;
+    max-width: 500px;
+    padding: 1rem;
+    background-color: var(--gp-panel-bg);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+    overflow-y: auto;
+}
+
+/* ==== Headings ==== */
+.gp-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--gp-text-default);
+}
+
+/* ==== Participant card ==== */
+.gp-card {
+    display: flex;
+    align-items: center;
+    background-color: var(--gp-card-bg);
+    border: 1px solid var(--gp-border-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--gp-card-shadow);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    transition: transform var(--gp-animation-duration) ease,
+        box-shadow var(--gp-animation-duration) ease,
+        border-color var(--gp-animation-duration) ease;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp var(--gp-animation-duration) ease forwards;
+}
+
+/* Fade-in-up animation when card is added */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effect */
+.gp-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--gp-card-hover-shadow);
+}
+
+/* Highlight initial “You” card */
+.gp-card-initial {
+    border-color: var(--gp-initial-border);
+    background-color: #eff6ff;
+    /* very light blue background */
+    position: relative;
+}
+
+/* Optionally add a “You” badge via pseudo-element */
+.gp-card-initial .gp-name::after {
+    content: " (You)";
+    font-size: 0.875rem;
+    color: var(--gp-text-accent);
+    margin-left: 4px;
+}
+
+/* ==== Avatar ==== */
+.gp-avatar {
+    width: 48px;
+    height: 48px;
+    background-color: var(--gp-border-light);
+    border-radius: 50%;
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* If you want a subtle border */
+.gp-avatar img,
+.gp-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Placeholder initial letter */
+.gp-avatar-placeholder {
+    font-size: 1.25rem;
+    color: var(--gp-text-secondary);
+}
+
+/* Optional status/pulse indicator for new joiner (add class .gp-new) */
+.gp-card.gp-new .gp-avatar::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--gp-text-accent);
+    border: 2px solid var(--gp-card-bg);
+    border-radius: 50%;
+    top: 0;
+    right: 0;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* ==== Participant info ==== */
+.gp-info {
+    flex: 1;
+    margin-left: 0.75rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.gp-info-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gp-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gp-text-default);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gp-amount {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gp-text-default);
+}
+
+.gp-info-mid {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+}
+
+.gp-qty {
+    font-size: 0.875rem;
+    color: var(--gp-text-secondary);
+}
+
+.gp-coins {
+    font-size: 0.875rem;
+    color: var(--gp-text-coin);
+    font-weight: 500;
+}
+
+.gp-info-bottom {
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+.gp-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.25rem;
+    color: var(--gp-text-accent);
+}
+
+.gp-location {
+    font-size: 0.875rem;
+    color: var(--gp-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==== Waiting text ==== */
+.gp-waiting {
+    text-align: center;
+    color: var(--gp-text-secondary);
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+/* ==== Order list ==== */
+.gp-order-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.gp-order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gp-border-light);
+}
+
+.gp-order-item-left {
+    max-width: 70%;
+}
+
+.gp-item-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gp-text-default);
+}
+
+.gp-item-sub {
+    font-size: 0.875rem;
+    color: var(--gp-text-secondary);
+}
+
+.gp-item-total {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gp-text-default);
+}
+
+/* ==== Summary ==== */
+.gp-summary {
+    margin-top: 1rem;
+    border-top: 1px solid var(--gp-border-light);
+    padding-top: 0.75rem;
+}
+
+.gp-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.gp-summary-label {
+    color: #374151;
+    font-weight: 500;
+}
+
+.gp-summary-value {
+    color: var(--gp-text-default);
+    font-weight: 600;
+}
+
+/* ==== Error text ==== */
+.gp-error {
+    color: #b91c1c;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* ==== When group ready ==== */
+.gp-ready-section {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    background-color: var(--gp-ready-bg);
+    border-radius: 6px;
+}
+
+.gp-ready-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.gp-ready-text {
+    font-size: 1rem;
+    color: var(--gp-text-default);
+    font-weight: 500;
+}
+
+/* ==== Button ==== */
+.gp-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--gp-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 0.5rem;
+}
+
+.gp-button:hover {
+    background-color: var(--gp-primary-hover);
+    transform: translateY(-1px);
+}
+
+.gp-button:active {
+    transform: translateY(0);
+}
+
+/* ==== Needed summary when not ready ==== */
+.gp-summary-needed {
+    text-align: center;
+    color: var(--gp-text-secondary);
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+/* ==== Scrollbar styling (optional) ==== */
+.gp-participants-panel::-webkit-scrollbar,
+.gp-order-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.gp-participants-panel::-webkit-scrollbar-thumb,
+.gp-order-panel::-webkit-scrollbar-thumb {
+    background-color: rgba(107, 114, 128, 0.5);
+    border-radius: 4px;
+}
+
+.gp-participants-panel::-webkit-scrollbar-track,
+.gp-order-panel::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* ==== Responsive tweaks ==== */
+/* Ensure cards shrink gracefully on smaller widths */
+@media (max-width: 480px) {
+    .gp-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gp-info-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .gp-info-mid,
+    .gp-info-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gp-avatar {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ==== Utility/helper classes ==== */
+/* If you want to mark a newly-joined card for a moment, add .gp-new class */
+/* Example in React: after adding to participants, set a flag and add gp-new, then remove it after animation */
+/* .gp-card.gp-new { border-color: var(--gp-text-accent); } */
+
+/* make map a fixed height */
+.jg-detail-panel .jg-map {
+    height: 60vh;       /* smaller than full height */
+  }
+  
+  /* selected‑card highlight (unchanged) */
+  .jg-card.selected {
+    border-color: #007bff;    /* same blue as your radius circle */
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+  }
+  

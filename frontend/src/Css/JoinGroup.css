@@ -1,0 +1,129 @@
+/* JoinGroup.css */
+
+/* split screen */
+.jg-container {
+    display: flex;
+    height: 100vh;
+    /* full viewport height */
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* left panel: group list */
+.jg-list-panel {
+    width: 35%;
+    padding: 2rem;
+    background: #f8f9fa;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+}
+
+.jg-list-panel h2 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+/* group card */
+.jg-card {
+    background: #fff;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.jg-card:hover {
+    border-color: #bbb;
+}
+
+.jg-card.selected {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* info rows in card */
+.jg-info {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.jg-icon {
+    margin-right: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    color: #555;
+}
+
+/* join button */
+.jg-join-button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1.5rem;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.jg-join-button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+.jg-join-button:not(:disabled):hover {
+    background: #0056b3;
+}
+
+/* right panel: map + summary */
+.jg-detail-panel {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* force leaflet map to fill its parent */
+.jg-detail-panel .leaflet-container {
+    flex: 1;
+    min-height: 0;
+    /* allow flex to shrink */
+}
+
+/* summary below map */
+.jg-summary {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 1rem 2rem;
+}
+
+.jg-summary h2 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.5rem;
+}
+
+.jg-summary div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* make map a fixed height */
+.jg-detail-panel .jg-map {
+    height: 60vh;
+    /* smaller than full height */
+}
+
+/* selected‑card highlight (unchanged) */
+.jg-card.selected {
+    border-color: #007bff;
+    /* same blue as your radius circle */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}

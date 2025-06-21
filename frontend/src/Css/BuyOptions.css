@@ -1,0 +1,175 @@
+
+.community-container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fcfcfc;
+    padding: 2rem 1rem;
+}
+
+.community-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Base card styling */
+.option-card {
+    position: relative;
+    flex: 1 1 260px;
+    max-width: 300px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+/* Common hover lift */
+.option-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Emoji styling */
+.emoji {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Button styling */
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    background: #007bff;
+    color: #fff;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.green-btn {
+    background: #28a745;
+}
+
+/* Buy animation: swing */
+@keyframes swing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(10deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.card-buy:hover .emoji {
+    animation: swing 1s ease-in-out infinite;
+}
+
+/* Create animation: grow */
+@keyframes grow {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.card-create:hover .emoji {
+    animation: grow 1s ease-in-out infinite;
+}
+
+/* Join animation: bounce */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.card-join:hover .emoji {
+    animation: bounce 0.8s ease-in-out infinite;
+}
+
+/* Add these to CommunityBuyOptions.css */
+
+/* Button color variants */
+.blue-btn {
+    background: #007bff;
+}
+
+.blue-btn:hover {
+    background: #0056b3;
+}
+
+.highlight {
+    margin: 0.5rem 0 1rem;
+    font-weight: 500;
+    color: #28a745;
+    font-style: italic;
+}
+
+/* Card background tints */
+.card-create,
+.card-join {
+    background: #e6f4ea;
+    /* light green */
+}
+
+.card-buy {
+    background: #e8f0fe;
+    /* light blue */
+}
+
+.buyoptions-container h2 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 2rem;
+    /* space between heading and options */
+}
+
+.buyoptions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem 1rem;
+    /* adjust top/bottom padding as desired */
+    box-sizing: border-box; }
