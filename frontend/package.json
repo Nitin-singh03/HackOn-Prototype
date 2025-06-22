@@ -13,6 +13,7 @@
     "amazon-hackon-prototype": "file:..",
     "axios": "^1.10.0",
     "framer-motion": "^12.18.1",
+    "lucide-react": "^0.522.0",
     "react": "^19.1.0",
     "react-currency-input-field": "^3.10.0",
     "react-dom": "^19.1.0",
