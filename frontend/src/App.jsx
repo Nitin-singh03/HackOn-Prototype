@@ -4,7 +4,6 @@ import "./App.css";
 // Core components
 import Header from "./Component/Header.jsx";
 import Home from "./Component/Home.jsx";
-import NavBar from "./Component/NavBar.jsx";
 import Checkout from "./Component/Checkout.jsx";
 import Login from "./Component/Login.jsx";
 
@@ -16,6 +15,7 @@ import NavBarg from "./Component/navbargreen.jsx";
 import EducationSection from "./Component/Educationsection.jsx";
 import SustainabilityReportsSection from "./Component/Sustainability.jsx";
 import SellerSection from "./Component/SellerSection.jsx";
+import NavBar from  "./Component/navbar.jsx";
 
 // Utility & Feedback
 import Footer from "./Component/Footer.jsx";
