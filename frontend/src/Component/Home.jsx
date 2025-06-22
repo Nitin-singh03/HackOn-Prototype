@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Css/Home.css";
-import ImageSlider from "./ImageSlider";
+import ImageSlider from "./Imageslider";
 
 function ProductCard({ product, onAddToCart, adding, added }) {
   const rating = product.rating ?? 0; // use rating from product data
