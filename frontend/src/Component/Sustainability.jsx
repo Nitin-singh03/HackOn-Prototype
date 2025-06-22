@@ -19,20 +19,20 @@ function SustainabilityReportsSection() {
 
       <div className="links">
       <span className="reports-heading">Sustainability Reports :  </span> 
+        <a href="https://s3.amazonaws.com/sustainabledevelopment.report/2024/sustainable-development-report-2024.pdf">
+          2024 /
+        </a>
+        <a href="https://sustainability.aboutamazon.com/2023-sustainability-report.pdf">
+           2023 /
+        </a>
         <a href="https://sustainability.aboutamazon.com/2022-sustainability-report.pdf">
           2022 /
         </a>
         <a href="https://sustainability.aboutamazon.com/2021-sustainability-report.pdf">
-           2021 /
+          2021 /
         </a>
         <a href="https://sustainability.aboutamazon.com/2020-sustainability-report.pdf">
-          2020 /
-        </a>
-        <a href="https://sustainability.aboutamazon.com/2019-sustainability-report.pdf">
-          2019 /
-        </a>
-        <a href="https://sustainability.aboutamazon.com/2018-sustainability-report.pdf">
-          2018
+          2020
         </a>
       </div>
       <div className="parameters">

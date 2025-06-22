@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Star, Leaf, Truck, Package, Award, ShoppingCart, Zap } from "lucide-react";
+import {
+  Star,
+  Leaf,
+  Truck,
+  Package,
+  Award,
+  ShoppingCart,
+  Zap,
+} from "lucide-react";
 import axios from "axios";
 import { getRecommendations } from "../services/recommendationService";
 import "../Css/ProductDetails.css";
@@ -20,55 +28,15 @@ export default function ProductDetails() {
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
 
-  // useEffect(() => {
-  //   // Mock product data for demo
-  //   const mockProduct = {
-  //     id: id,
-  //     name: "Premium Organic Cotton T-Shirt",
-  //     image: "https://images.pexels.com/photos/4792489/pexels-photo-4792489.jpeg?auto=compress&cs=tinysrgb&w=600",
-  //     price: 29.99,
-  //     description: "Made from 100% organic cotton, this premium t-shirt combines comfort with sustainability. Perfect for everyday wear while reducing your environmental impact.",
-  //     countInStock: 15,
-  //     brand: "EcoWear",
-  //     category: "Clothing",
-  //     rating: 4.3,
-  //     materialComposition: [
-  //       { name: "Organic Cotton", ratio: 0.95, footprint: 0.2 },
-  //       { name: "Recycled Polyester", ratio: 0.05, footprint: 0.1 }
-  //     ],
-  //     certifications: [
-  //       { name: "GOTS Certified" },
-  //       { name: "Fair Trade" },
-  //       { name: "Carbon Neutral" }
-  //     ],
-  //     eco: {
-  //       ecoScore: 78,
-  //       matScore: 0.85,
-  //       manufScore: 0.75,
-  //       transScore: 0.70,
-  //       pkgScore: 0.82,
-  //       bonusScore: 0.80
-  //     }
-  //   };
-
-  //   setProduct(mockProduct);
-
-  //   // Load recommendations
-  //   loadRecommendations();
-  // }, [id]);
-
-    useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get(`/api/products/${id}`);
-        console.log("Fetched product:", data);
         setProduct(data);
       } catch {
         setError("Failed to load product details.");
       }
-
-    // Load recommendations
-    loadRecommendations();
+      loadRecommendations();
     })();
   }, [id]);
 
@@ -78,7 +46,7 @@ export default function ProductDetails() {
       const data = await getRecommendations(id);
       setRecommendations(data);
     } catch (err) {
-      console.error("Failed to load recommendations:", err);
+      console.error(err);
     } finally {
       setLoadingRecs(false);
     }
@@ -89,7 +57,7 @@ export default function ProductDetails() {
 
   const {
     name,
-    image,
+    image_url,
     price,
     description,
     countInStock,
@@ -105,9 +73,10 @@ export default function ProductDetails() {
       transScore = 0,
       pkgScore = 0,
       bonusScore = 0,
-    } = {}
+    } = {},
   } = product;
 
+  // compute eco grade + per-100₹ coin rates
   const ecoGrade =
     ecoScore >= 90 ? "A+" :
     ecoScore >= 75 ? "A" :
@@ -127,31 +96,62 @@ export default function ProductDetails() {
       ecoScore >= 40 ? 4 : 0,
   };
 
+  // total coins for this single unit
   const totalGecko = Math.floor((price * per100.gecko) / 100);
   const totalCanopy = Math.floor((price * per100.canopy) / 100);
 
+  // fixed shipping & delivery
   const shippingFee = 28.44;
   const deliveryDate = new Date();
   deliveryDate.setDate(deliveryDate.getDate() + 2);
   const deliveryStr = deliveryDate.toLocaleString("default", {
-    month: "long", day: "numeric"
+    month: "long",
+    day: "numeric",
   });
 
+  // Add to cart (mock)
   const addToCart = async () => {
     if (countInStock === 0) return;
     try {
       setAdding(true);
       setError("");
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((r) => setTimeout(r, 1000));
       setAdded(true);
       setTimeout(() => setAdded(false), 1500);
-    } catch (err) {
-      console.error(err);
+    } catch {
       setError("Failed to add item to cart.");
     } finally {
       setAdding(false);
     }
+  };
+
+  // New: Build payloads & navigate to /buyOptions
+  const handleBuyNow = () => {
+    // 1) items: one {productId, qty:1} per unit
+    const itemsPayload = Array.from({ length: qty }, () => ({
+      productId: id,
+      qty: 1,
+    }));
+    // 2) coins summary
+    const coinsPayload = {
+      totalGecko,
+      totalCanopy,
+    };
+    // 3) cost breakdown
+    const subtotal = price * qty;
+    const costPayload = {
+      shipping: shippingFee,
+      subtotal: +subtotal.toFixed(2),
+      total: +((subtotal + shippingFee).toFixed(2)),
+    };
+    // navigate with exactly those three objects
+    navigate("/buyOptions", {
+      state: {
+        items: itemsPayload,
+        coins: coinsPayload,
+        cost: costPayload,
+      },
+    });
   };
 
   const handleAlternativeClick = (productId) => {
@@ -163,7 +163,7 @@ export default function ProductDetails() {
       <div className="pd pd--amazon">
         {/* IMAGE COLUMN */}
         <div className="pd__col pd__col--image">
-          <img src={image} alt={name} className="pd__image" />
+          <img src={image_url} alt={name} className="pd__image" />
         </div>
 
         {/* DETAILS + ECO/COINS */}
@@ -317,13 +317,13 @@ export default function ProductDetails() {
           </button>
 
           <button
-            className="ap__btn ap__btn--buy"
-            disabled={countInStock === 0}
-            onClick={() => navigate(`/payment`)}
-          >
-            <Zap size={16} />
-            Buy Now
-          </button>
+          className="ap__btn ap__btn--buy"
+          disabled={countInStock === 0}
+          onClick={handleBuyNow}
+        >
+          <Zap size={16} />
+          Buy Now
+        </button>
 
           {error && <div className="pd__error">{error}</div>}
 
@@ -393,7 +393,7 @@ export default function ProductDetails() {
                 </div>
                 
                 <div className="alt-image-container">
-                  <img src={alt.image} alt={alt.name} className="alt-image" />
+                  <img src={alt.image_url} alt={alt.name} className="alt-image" />
                   <div className="alt-overlay">
                     <span className="view-product">View Product</span>
                   </div>

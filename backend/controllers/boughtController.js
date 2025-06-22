@@ -12,8 +12,8 @@ export const createBoughtRecord = async (req, res) => {
     }
 
     const sanitizedItems = items.map(item => {
-      const { productId, qty, name, price, image = '' } = item;
-      return { productId, qty, name, price, image };
+      const { productId, qty, name, price, image = '', image_url } = item;
+      return { productId, qty, name, price, image, image_url };
     });
 
     const serverCost = sanitizedItems.reduce((sum, it) => sum + it.price * it.qty, 0);

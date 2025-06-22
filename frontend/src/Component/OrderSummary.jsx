@@ -31,11 +31,6 @@ const OrderSummary = ({ items = [], loading, error, coins = 0, cost = 0 }) => {
       <h2>Order Summary</h2>
       {items.map((it) => (
         <div className="order-item" key={it.productId}>
-          <img
-            src={it.image || 'https://via.placeholder.com/80'}
-            alt={it.name}
-            className="product-image"
-          />
           <div className="item-details">
             <h3>{it.name}</h3>
             <p className="item-price">₹{it.price.toFixed(2)}</p>
