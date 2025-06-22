@@ -9,11 +9,14 @@ import optionRoutes  from './routes/optionRoutes.js';
 import cartRoutes from "./routes/cartRoutes.js";
 import boughtRoutes from "./routes/boughtRoutes.js";
 
+
 dotenv.config();
 const MONGO_URI = process.env.MONGO_URI;
 const app = express();
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));app.use(express.json());
 
 app.use('/api/products', productRoutes);
 app.use('/api/users',    userRoutes);
