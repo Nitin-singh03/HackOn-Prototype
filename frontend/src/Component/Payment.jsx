@@ -6,7 +6,7 @@ import OrderSummary from './OrderSummary';
 import PaymentOptions from './PaymentOptions';
 import DeliveryDatePicker from './DeliveryDatePicker';
 import BillingAddress from './BillingAddress';
-const API_BASE = import.meta.env.BACKEND_URL;
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 import '../App.css';
 

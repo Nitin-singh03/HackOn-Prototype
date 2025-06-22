@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Css/Home.css";
-const API_BASE = import.meta.env.BACKEND_URL;
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 import ImageSlider from "./Imageslider";
 
 function ProductCard({ product, onAddToCart, adding, added }) {
   const rating = product.rating ?? 0; // use rating from product data
+  console.log(API_BASE);
 
   return (
     <div className="product-card">

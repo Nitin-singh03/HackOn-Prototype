@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../Css/Homegreen.css";
-const API_BASE = import.meta.env.BACKEND_URL;
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 import ImageSliderGreen from "./Imageslidegreen";
 

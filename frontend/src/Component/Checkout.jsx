@@ -1,6 +1,6 @@
 // src/components/Checkout.jsx
 import React, { useState, useEffect } from "react";
-const API_BASE = import.meta.env.BACKEND_URL;
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 import axios from "axios";
 import "../Css/Checkout.css";

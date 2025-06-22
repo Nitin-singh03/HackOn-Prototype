@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-const API_BASE = import.meta.env.BACKEND_URL;
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Truck } from 'lucide-react';

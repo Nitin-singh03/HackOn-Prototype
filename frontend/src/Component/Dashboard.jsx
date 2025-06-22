@@ -1,7 +1,7 @@
 // File: AmazonGreenDashboard.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-const API_BASE = import.meta.env.BACKEND_URL;
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 import axios from "axios";
 import {
