@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Star, Leaf, Truck, Package, Award, ShoppingCart, Zap } from "lucide-react";
+import {
+  Star,
+  Leaf,
+  Truck,
+  Package,
+  Award,
+  ShoppingCart,
+  Zap,
+} from "lucide-react";
 import axios from "axios";
 import { getRecommendations } from "../services/recommendationService";
 import "../Css/ProductDetails.css";
@@ -13,62 +21,23 @@ export default function ProductDetails() {
   const [recommendations, setRecommendations] = useState(null);
   const [error, setError] = useState("");
   const [loadingRecs, setLoadingRecs] = useState(false);
-  const [ratingCount] = useState(() =>
-    Math.floor(Math.random() * (5000 - 200) + 200)
+  const [ratingCount] = useState(
+    () => Math.floor(Math.random() * (5000 - 200) + 200)
   );
   const [qty, setQty] = useState(1);
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
 
-  // useEffect(() => {
-  //   // Mock product data for demo
-  //   const mockProduct = {
-  //     id: id,
-  //     name: "Premium Organic Cotton T-Shirt",
-  //     image: "https://images.pexels.com/photos/4792489/pexels-photo-4792489.jpeg?auto=compress&cs=tinysrgb&w=600",
-  //     price: 29.99,
-  //     description: "Made from 100% organic cotton, this premium t-shirt combines comfort with sustainability. Perfect for everyday wear while reducing your environmental impact.",
-  //     countInStock: 15,
-  //     brand: "EcoWear",
-  //     category: "Clothing",
-  //     rating: 4.3,
-  //     materialComposition: [
-  //       { name: "Organic Cotton", ratio: 0.95, footprint: 0.2 },
-  //       { name: "Recycled Polyester", ratio: 0.05, footprint: 0.1 }
-  //     ],
-  //     certifications: [
-  //       { name: "GOTS Certified" },
-  //       { name: "Fair Trade" },
-  //       { name: "Carbon Neutral" }
-  //     ],
-  //     eco: {
-  //       ecoScore: 78,
-  //       matScore: 0.85,
-  //       manufScore: 0.75,
-  //       transScore: 0.70,
-  //       pkgScore: 0.82,
-  //       bonusScore: 0.80
-  //     }
-  //   };
-
-  //   setProduct(mockProduct);
-
-  //   // Load recommendations
-  //   loadRecommendations();
-  // }, [id]);
-
-    useEffect(() => {
+  // Fetch product and recommendations
+  useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get(`/api/products/${id}`);
-        console.log("Fetched product:", data);
         setProduct(data);
       } catch {
         setError("Failed to load product details.");
       }
-
-    // Load recommendations
-    loadRecommendations();
+      loadRecommendations();
     })();
   }, [id]);
 
@@ -78,13 +47,14 @@ export default function ProductDetails() {
       const data = await getRecommendations(id);
       setRecommendations(data);
     } catch (err) {
-      console.error("Failed to load recommendations:", err);
+      console.error(err);
     } finally {
       setLoadingRecs(false);
     }
   };
 
-  if (error && !product) return <div className="pd__error">{error}</div>;
+  if (error && !product)
+    return <div className="pd__error">{error}</div>;
   if (!product) return <div className="pd__loading">Loading…</div>;
 
   const {
@@ -105,28 +75,32 @@ export default function ProductDetails() {
       transScore = 0,
       pkgScore = 0,
       bonusScore = 0,
-    } = {}
+    } = {},
   } = product;
 
-  const ecoGrade =
-    ecoScore >= 90 ? "A+" :
-    ecoScore >= 75 ? "A" :
-    ecoScore >= 60 ? "B" :
-    ecoScore >= 40 ? "C" : "D";
-
+  // Eco‐coin percentages per ₹100
   const per100 = {
     gecko:
-      ecoScore >= 90 ? 15 :
-      ecoScore >= 75 ? 12 :
-      ecoScore >= 60 ? 8 :
-      ecoScore >= 40 ? 4 : 0,
+      ecoScore >= 90
+        ? 15
+        : ecoScore >= 75
+        ? 12
+        : ecoScore >= 60
+        ? 8
+        : ecoScore >= 40
+        ? 4
+        : 0,
     canopy:
-      ecoScore >= 90 ? 15 :
-      ecoScore >= 75 ? 12 :
-      ecoScore >= 60 ? 8 :
-      ecoScore >= 40 ? 4 : 0,
+      ecoScore >= 90
+        ? 15
+        : ecoScore >= 75
+        ? 12
+        : ecoScore >= 60
+        ? 8
+        : ecoScore >= 40
+        ? 4
+        : 0,
   };
-
   const totalGecko = Math.floor((price * per100.gecko) / 100);
   const totalCanopy = Math.floor((price * per100.canopy) / 100);
 
@@ -134,25 +108,50 @@ export default function ProductDetails() {
   const deliveryDate = new Date();
   deliveryDate.setDate(deliveryDate.getDate() + 2);
   const deliveryStr = deliveryDate.toLocaleString("default", {
-    month: "long", day: "numeric"
+    month: "long",
+    day: "numeric",
   });
 
   const addToCart = async () => {
     if (countInStock === 0) return;
+    setAdding(true);
+    setError("");
     try {
-      setAdding(true);
-      setError("");
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((r) => setTimeout(r, 1000));
       setAdded(true);
       setTimeout(() => setAdded(false), 1500);
-    } catch (err) {
-      console.error(err);
+    } catch {
       setError("Failed to add item to cart.");
     } finally {
       setAdding(false);
     }
   };
+
+  // ── Prepare payloads ─────────────────────────────────────────
+  // items: an array of { productId, qty }
+  const itemsPayload = [
+    { productId: id, qty },
+    // You can include more items here if you maintain a cart array
+  ];
+
+  const coinsPayload = { totalGecko, totalCanopy };
+
+  const costPayload = {
+    subtotal: +(price * qty).toFixed(2),
+    shipping: +shippingFee.toFixed(2),
+    total: +((price * qty) + shippingFee).toFixed(2),
+  };
+
+  const handleBuyNow = () => {
+    navigate("/buyOptions", {
+      state: {
+        items: itemsPayload,
+        coins: coinsPayload,
+        cost: costPayload,
+      },
+    });
+  };
+  // ──────────────────────────────────────────────────────────────
 
   const handleAlternativeClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -161,21 +160,23 @@ export default function ProductDetails() {
   return (
     <div className="pd-container">
       <div className="pd pd--amazon">
-        {/* IMAGE COLUMN */}
+        {/* IMAGE */}
         <div className="pd__col pd__col--image">
           <img src={image} alt={name} className="pd__image" />
         </div>
 
-        {/* DETAILS + ECO/COINS */}
+        {/* DETAILS & ECO */}
         <div className="pd__col pd__col--details">
           <h1 className="pd__title">{name}</h1>
           {brand && <div className="pd__brand">Brand: {brand}</div>}
-          {category && <div className="pd__category">Category: {category}</div>}
+          {category && (
+            <div className="pd__category">Category: {category}</div>
+          )}
 
           <div className="pd__rating">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star 
-                key={i} 
+              <Star
+                key={i}
                 className={`pd__star ${i < rating ? "filled" : ""}`}
                 size={18}
                 fill={i < rating ? "#f0c14b" : "none"}
@@ -188,7 +189,11 @@ export default function ProductDetails() {
           </div>
 
           <div className="pd__priceLarge">₹{price.toFixed(2)}</div>
-          <div className={`pd__stock ${countInStock > 0 ? "in" : "out"}`}>
+          <div
+            className={`pd__stock ${
+              countInStock > 0 ? "in" : "out"
+            }`}
+          >
             {countInStock > 0 ? "In Stock" : "Out of Stock"}
           </div>
 
@@ -199,10 +204,9 @@ export default function ProductDetails() {
             <h3 className="pd__ecoHeading">
               <Leaf className="eco-icon" size={20} />
               Eco Score:{" "}
-              <span className={`pd__ecoGrade grade-${ecoGrade}`}>
-                {ecoGrade}
-              </span>{" "}
-              ({ecoScore.toFixed(1)})
+              <span className={`pd__ecoGrade`}>
+                {ecoScore.toFixed(1)}
+              </span>
             </h3>
             <div className="pd__ecoGrid">
               <div className="pd__ecoMetric">
@@ -226,31 +230,6 @@ export default function ProductDetails() {
                 Bonus: {(bonusScore * 100).toFixed(0)}%
               </div>
             </div>
-
-            <h4 className="pd__subheading">Composition</h4>
-            <ul className="pd__comp">
-              {materialComposition.map((c, i) => (
-                <li key={i}>
-                  <strong>{c.name}</strong>:{" "}
-                  {(c.ratio * 100).toFixed(0)}%{" "}
-                  <em>(footprint {(c.footprint * 100).toFixed(0)}%)</em>
-                </li>
-              ))}
-            </ul>
-
-            {certifications.length > 0 && (
-              <>
-                <h4 className="pd__subheading">Certifications</h4>
-                <div className="pd__certsHorizontal">
-                  {certifications.map((cert, i) => (
-                    <span key={i} className="pd__certBox">
-                      <Award size={14} />
-                      {cert.name}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
           </section>
 
           {/* COINS PANEL */}
@@ -259,14 +238,14 @@ export default function ProductDetails() {
               <div className="coin-icon gecko">🦎</div>
               <div>
                 <span className="pd__coinCount">{totalGecko}</span>
-                <small>Gecko Coins ({per100.gecko}% per ₹100)</small>
+                <small>Gecko Coins ({per100.gecko}%/₹100)</small>
               </div>
             </div>
             <div className="pd__coinItem">
               <div className="coin-icon canopy">🌳</div>
               <div>
                 <span className="pd__coinCount">{totalCanopy}</span>
-                <small>Canopy Coins ({per100.canopy}% per ₹100)</small>
+                <small>Canopy Coins ({per100.canopy}%/₹100)</small>
               </div>
             </div>
           </section>
@@ -283,7 +262,11 @@ export default function ProductDetails() {
             Delivery <strong>{deliveryStr}</strong>. Order within{" "}
             <strong>18 hrs 7 mins</strong>
           </div>
-          <div className={`ap__stock ${countInStock > 0 ? "in" : "out"}`}>
+          <div
+            className={`ap__stock ${
+              countInStock > 0 ? "in" : "out"
+            }`}
+          >
             {countInStock > 0 ? "In Stock" : "Out of Stock"}
           </div>
 
@@ -293,10 +276,12 @@ export default function ProductDetails() {
               <select
                 id="qty"
                 value={qty}
-                onChange={e => setQty(+e.target.value)}
+                onChange={(e) => setQty(+e.target.value)}
               >
-                {[...Array(Math.min(countInStock, 5)).keys()].map(x => (
-                  <option key={x + 1} value={x + 1}>{x + 1}</option>
+                {[...Array(Math.min(countInStock, 5)).keys()].map((x) => (
+                  <option key={x + 1} value={x + 1}>
+                    {x + 1}
+                  </option>
                 ))}
               </select>
             </div>
@@ -308,18 +293,13 @@ export default function ProductDetails() {
             onClick={addToCart}
           >
             <ShoppingCart size={16} />
-            {adding
-              ? "Adding…"
-              : added
-                ? "✓ Added!"
-                : "Add to Cart"
-            }
+            {adding ? "Adding…" : added ? "✓ Added!" : "Add to Cart"}
           </button>
 
           <button
             className="ap__btn ap__btn--buy"
             disabled={countInStock === 0}
-            onClick={() => navigate(`/payment`)}
+            onClick={handleBuyNow}
           >
             <Zap size={16} />
             Buy Now
