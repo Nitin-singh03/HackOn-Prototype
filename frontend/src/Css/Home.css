@@ -113,20 +113,21 @@
 
 /* Add to Cart button */
 .product-card__btn {
-  background: #2ecc71;
-  color: #fff;
+  background: #ffdb26;
   border: none;
+  
   padding: 0.5rem;
   font-size: 0.95rem;
   cursor: pointer;
   text-align: center;
-  width: 60%;
+  width: 40%;
+  border-radius: 20px;
   margin: 0.5rem auto 0;
   transition: background 0.2s ease;
 }
 
 .product-card__btn:hover {
-  background: #27ae60;
+  background: #efdb78;
 }
 
 .product-card__link {
