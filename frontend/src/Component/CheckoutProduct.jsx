@@ -27,7 +27,7 @@ export default function CheckoutProduct({
       <Link to={`/product/${product._id}`}>
         <img
           className="checkoutProduct-card__image"
-          src={product.image}
+          src={product.image_url}
           alt={product.name}
         />
       </Link>

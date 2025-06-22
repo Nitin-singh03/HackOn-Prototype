@@ -273,7 +273,7 @@ export default function SearchResults() {
             return (
               <div key={p._id} className="product-card">
                 <Link to={`/product/${p._id}`} className="product-link">
-                  <img src={p.image} alt={p.name} />
+                  <img src={p.image_url} alt={p.name} />
                   <h3>{p.name}</h3>
                 </Link>
                 <div className="star-rating">

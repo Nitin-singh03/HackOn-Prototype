@@ -162,7 +162,7 @@ export default function ProductDetails() {
       <div className="pd pd--amazon">
         {/* IMAGE */}
         <div className="pd__col pd__col--image">
-          <img src={image} alt={name} className="pd__image" />
+          <img src={image_url} alt={name} className="pd__image" />
         </div>
 
         {/* DETAILS & ECO */}
@@ -373,7 +373,7 @@ export default function ProductDetails() {
                 </div>
                 
                 <div className="alt-image-container">
-                  <img src={alt.image} alt={alt.name} className="alt-image" />
+                  <img src={alt.image_url} alt={alt.name} className="alt-image" />
                   <div className="alt-overlay">
                     <span className="view-product">View Product</span>
                   </div>
