@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
   isAdmin:  { type: Boolean, default: false }
 }, { timestamps: true });
 
-// password hash
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 10);

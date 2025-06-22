@@ -4,7 +4,7 @@ const BoughtSchema = new mongoose.Schema({
   items: [
     {
       productId: { 
-        type: String,      // or mongoose.Schema.Types.ObjectId if you’re referencing a Products collection
+        type: String,      
         required: true 
       },
       qty: { 

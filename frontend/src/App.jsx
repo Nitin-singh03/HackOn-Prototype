@@ -9,7 +9,6 @@ import Checkout from "./Component/Checkout.jsx";
 import Login from "./Component/Login.jsx";
 
 // Green theme components
-import Headergreen from "./Component/Headergreen.jsx";
 import Homegreen from "./Component/Homegreen.jsx";
 import NavBarg from "./Component/NavBargreen.jsx";
 
@@ -50,7 +49,7 @@ function App() {
             path="/feedbacksubmitted"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <FSubmitted />
               </>
@@ -66,7 +65,7 @@ function App() {
             path="/feedback"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <Feedback />
                 <Footer />
@@ -77,7 +76,7 @@ function App() {
             path="/return"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <ReturnPackage />
                 <Footer />
@@ -89,7 +88,7 @@ function App() {
             path="/redeem"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <RedeemPage />
                 <Footer />
@@ -100,7 +99,7 @@ function App() {
             path="/group-purchase"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <GroupPurchase />
                 <Footer />
@@ -111,7 +110,7 @@ function App() {
             path="/dashboard"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <Dashboard />
                 <Footer />
@@ -122,7 +121,7 @@ function App() {
             path="/join-group"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 < JoinGroup/>
                 <Footer />
@@ -134,7 +133,7 @@ function App() {
             path="/create-group"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <CreateGroup />
                 <Footer />
@@ -147,7 +146,7 @@ function App() {
             path="/submitted"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <Submitted />
               </>
             }
@@ -156,7 +155,7 @@ function App() {
             path="/seller"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <SellerSection />
                 <Footer />
@@ -190,7 +189,7 @@ function App() {
             path="/sustainability"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <SustainabilityReportsSection />
                 <Footer />
@@ -201,7 +200,7 @@ function App() {
             path="/education"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <EducationSection />
                 <Footer />
@@ -212,7 +211,7 @@ function App() {
             path="/buyOptions"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <BuyOptions />
                 <Footer />
@@ -285,7 +284,7 @@ function App() {
             path="/product1"
             element={
               <>
-                <Headergreen />
+                <Header />
                 <NavBarg />
                 <ProductDetails1 />
                 <Footer />

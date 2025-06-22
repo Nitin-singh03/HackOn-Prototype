@@ -26,15 +26,12 @@ export const addCartItem = asyncHandler(async (req, res) => {
   );
 
   if (qty === 0) {
-    // remove
     cart.items = cart.items.filter(
       item => item.product.toString() !== productId
     );
   } else if (idx >= 0) {
-    // set to qty (clamped to stock)
     cart.items[idx].quantity = Math.min(qty, product.countInStock);
   } else {
-    // add new
     cart.items.push({
       product: productId,
       quantity: Math.min(qty, product.countInStock)
@@ -48,7 +45,7 @@ export const addCartItem = asyncHandler(async (req, res) => {
 
 export const getCart = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne()
-    .populate("items.product"); // again, full Product objects
+    .populate("items.product"); 
 
   if (!cart) {
     return res.json({ items: [] });

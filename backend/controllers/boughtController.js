@@ -1,33 +1,23 @@
-// Controllers/boughtController.js
 import Bought from '../Models/Bought.js';
 
-/**
- * POST /api/bought
- * body: { items, coins }
- */
 export const createBoughtRecord = async (req, res) => {
   try {
     const { items, coins } = req.body;
 
-    // Validate items array
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: 'Items must be a non-empty array.' });
     }
-    // Validate coins object
     if (typeof coins !== 'object' || coins === null) {
       return res.status(400).json({ error: 'Coins object is required.' });
     }
 
-    // Sanitize and enforce allowed fields on items
     const sanitizedItems = items.map(item => {
       const { productId, qty, name, price, image = '' } = item;
       return { productId, qty, name, price, image };
     });
 
-    // Recalculate total cost on server for security
     const serverCost = sanitizedItems.reduce((sum, it) => sum + it.price * it.qty, 0);
 
-    // Build and save the purchase record
     const record = new Bought({
       items: sanitizedItems,
       coins: {
@@ -51,7 +41,6 @@ export const createBoughtRecord = async (req, res) => {
 
 export const getFullBoughtList = async (req, res) => {
   try {
-    // Fetch all records
     const records = await Bought.find({}, {
       'items.productId': 1,
       'items.qty': 1,
@@ -60,7 +49,6 @@ export const getFullBoughtList = async (req, res) => {
       _id: 0
     }).lean();
 
-    // Flatten items with associated coins
     const fullList = records.flatMap(rec =>
       rec.items.map(item => ({
         productId: item.productId,

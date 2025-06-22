@@ -6,7 +6,7 @@
     background-color:  #131921;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 5000;
   }
   
   .header__logo {
@@ -25,7 +25,7 @@
   }
   
   .header__searchInput {
-    height: 12px;
+    height: 30px !important;
     padding: 10px;
     border: none;
     width: 100%;
@@ -33,11 +33,14 @@
   }
   
   .header__searchIcon {
-    padding: 5px;
-    height: 22px !important;
+    height: 24px !important;
     background-color: #cd9042;
     border-radius: 3px;
   }
+    .header__searchIconBtn {
+      height: 33px !important;
+      background-color: #cd9042;
+    }
 
   .header__cartIcon {
     padding: 5px;
