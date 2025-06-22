@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "../Css/Homegreen.css";
+const API_BASE = import.meta.env.BACKEND_URL;
+
 import ImageSliderGreen from "./Imageslidegreen";
 
 function Productgreen({
@@ -144,7 +146,7 @@ export default function Homegreen() {
       setLoading(true);
       setError("");
       try {
-        const { data } = await axios.get("/api/products");
+        const { data } = await axios.get(`${API_BASE}/api/products`);
         setProducts(data);
       } catch {
         setError("Failed to load products.");
@@ -157,7 +159,7 @@ export default function Homegreen() {
   const handleAddToCart = async (productId) => {
     setCartState(prev => ({ ...prev, [productId]: { adding: true, added: false } }));
     try {
-      const { data: updatedCart } = await axios.post("/api/cart", { productId, qty: 1 });
+      const { data: updatedCart } = await axios.post(`${API_BASE}/api/cart`, { productId, qty: 1 });
       window.dispatchEvent(new CustomEvent("cartUpdated", { detail: updatedCart }));
       setCartState(prev => ({ ...prev, [productId]: { adding: false, added: true } }));
       setTimeout(() => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Css/Home.css";
+const API_BASE = import.meta.env.BACKEND_URL;
 import ImageSlider from "./Imageslider";
 
 function ProductCard({ product, onAddToCart, adding, added }) {
@@ -66,7 +67,7 @@ export default function Home() {
     (async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get("/api/products");
+        const { data } = await axios.get(`${API_BASE}/api/products`);
         setProducts(data);
       } catch (err) {
         setError("Failed to fetch products.");
@@ -83,7 +84,7 @@ export default function Home() {
     }));
 
     try {
-      const { data: updatedCart } = await axios.post("/api/cart", {
+      const { data: updatedCart } = await axios.post(`${API_BASE}/api/cart`, {
         productId,
         qty: 1
       });

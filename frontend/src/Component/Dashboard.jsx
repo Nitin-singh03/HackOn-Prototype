@@ -1,6 +1,7 @@
 // File: AmazonGreenDashboard.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+const API_BASE = import.meta.env.BACKEND_URL;
 
 import axios from "axios";
 import {
@@ -70,7 +71,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('/api/bought/full');
+        const res = await axios.get(`${API_BASE}/api/bought/full`);
         const records = res.data; // expected: array of objects: { productId, qty, totalCanopy, totalGecko }
         console.log("Fetched records:", records);
 

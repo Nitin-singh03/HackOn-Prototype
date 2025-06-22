@@ -1,5 +1,7 @@
 // src/components/Checkout.jsx
 import React, { useState, useEffect } from "react";
+const API_BASE = import.meta.env.BACKEND_URL;
+
 import axios from "axios";
 import "../Css/Checkout.css";
 import CheckoutProduct from "./CheckoutProduct";
@@ -18,7 +20,7 @@ export default function Checkout() {
     (async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get("/api/cart");
+        const { data } = await axios.get(`${API_BASE}/api/cart`);
         // Expect data shape: { items: [ { product: {...}, quantity: n }, ... ] }
         // Defensive: check data.items is array
         if (data && Array.isArray(data.items)) {
@@ -39,7 +41,7 @@ export default function Checkout() {
   // Update an item in cart via API
   const updateItem = async (productId, qty) => {
     try {
-      const { data } = await axios.post("/api/cart", { productId, qty });
+      const { data } = await axios.post(`${API_BASE}/api/cart`, { productId, qty });
       if (data && Array.isArray(data.items)) {
         setCart(data);
       } else {

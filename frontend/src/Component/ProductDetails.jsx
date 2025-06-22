@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+const API_BASE = import.meta.env.BACKEND_URL;
+
 import {
   Star,
   Leaf,
@@ -31,7 +33,7 @@ export default function ProductDetails() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`/api/products/${id}`);
+        const { data } = await axios.get(`${API_BASE}/api/products/${id}`);
         setProduct(data);
       } catch {
         setError("Failed to load product details.");
@@ -116,7 +118,7 @@ export default function ProductDetails() {
       setAdding(true);
       setError("");
       // call backend cart API
-      const { data: updatedCart } = await axios.post("/api/cart", {
+      const { data: updatedCart } = await axios.post(`${API_BASE}/api/cart`, {
         productId: id,
         qty,
       });

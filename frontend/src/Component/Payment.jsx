@@ -6,6 +6,8 @@ import OrderSummary from './OrderSummary';
 import PaymentOptions from './PaymentOptions';
 import DeliveryDatePicker from './DeliveryDatePicker';
 import BillingAddress from './BillingAddress';
+const API_BASE = import.meta.env.BACKEND_URL;
+
 import '../App.css';
 
 export default function Payment() {
@@ -37,7 +39,7 @@ export default function Payment() {
         const details = await Promise.all(
           itemsInput.map(async ({ productId, qty = 1 }) => {
             try {
-              const { data: prod } = await axios.get(`/api/products/${productId}`);
+              const { data: prod } = await axios.get(`${API_BASE}/api/products/${productId}`);
               return {
                 productId,
                 name: prod.name || `Product ${productId}`,
@@ -71,7 +73,7 @@ export default function Payment() {
     setSubmitError('');
 
     try {
-      const response = await axios.post('/api/bought', {
+      const response = await axios.post(`${API_BASE}/api/bought`, {
         items: orderItems,
         coins: {
           totalGecko: geckoFromState + 20,

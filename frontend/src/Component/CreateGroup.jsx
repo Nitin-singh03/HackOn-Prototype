@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+const API_BASE = import.meta.env.BACKEND_URL;
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Truck } from 'lucide-react';
@@ -66,7 +67,7 @@ export default function GroupPurchase() {
         const details = [];
         for (const it of itemsInput) {
           try {
-            const res = await axios.get(`/api/products/${it.productId}`);
+            const res = await axios.get(`${API_BASE}/api/products/${it.productId}`);
             const prod = res.data;
             details.push({
               productId: it.productId,

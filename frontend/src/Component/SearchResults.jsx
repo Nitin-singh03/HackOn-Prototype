@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+const API_BASE = import.meta.env.BACKEND_URL;
 import axios from 'axios';
 import '../Css/SearchPage.css';
 
@@ -49,7 +50,7 @@ export default function SearchResults() {
       setLoading(true);
       try {
         const { data } = await axios.get(
-          `/api/products/search?keyword=${encodeURIComponent(keyword)}`
+          `${API_BASE}/api/products/search?keyword=${encodeURIComponent(keyword)}`
         );
         setProducts(data);
       } catch (err) {
@@ -113,7 +114,7 @@ export default function SearchResults() {
     }));
 
     try {
-      const { data: updatedCart } = await axios.post("/api/cart", {
+      const { data: updatedCart } = await axios.post(`${API_BASE}/api/cart`, {
         productId,
         qty: 1
       });
