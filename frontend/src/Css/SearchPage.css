@@ -311,8 +311,8 @@ body {
 .add-cart-btn {
   margin: var(--space-sm);
   padding: var(--space-sm);
-  background: var(--color-primary);
-  color: #fff;
+  margin: 1.5rem auto 0;
+  background: #ffdb26;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
@@ -320,7 +320,7 @@ body {
   transition: background var(--trans-fast), transform var(--trans-fast);
 }
 .add-cart-btn:hover {
-  background: var(--color-primary-hover);
+  background: #fee359;
   transform: translateY(-2px);
 }
 
@@ -372,4 +372,8 @@ body {
   border-radius: var(--radius);
   font-size: var(--fz-sm);
   color: var(--color-text-alt);
+}
+
+.certificates{
+  min-height: 10px;
 }
