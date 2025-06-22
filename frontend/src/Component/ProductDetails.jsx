@@ -115,10 +115,20 @@ export default function ProductDetails() {
     try {
       setAdding(true);
       setError("");
-      await new Promise((r) => setTimeout(r, 1000));
+      // call backend cart API
+      const { data: updatedCart } = await axios.post("/api/cart", {
+        productId: id,
+        qty,
+      });
+      // broadcast cart update event
+      window.dispatchEvent(
+        new CustomEvent("cartUpdated", { detail: updatedCart })
+      );
       setAdded(true);
+      // reset added state after a moment
       setTimeout(() => setAdded(false), 1500);
-    } catch {
+    } catch (err) {
+      console.error("Add to cart failed:", err);
       setError("Failed to add item to cart.");
     } finally {
       setAdding(false);
@@ -128,10 +138,7 @@ export default function ProductDetails() {
   // New: Build payloads & navigate to /buyOptions
   const handleBuyNow = () => {
     // 1) items: one {productId, qty:1} per unit
-    const itemsPayload = Array.from({ length: qty }, () => ({
-      productId: id,
-      qty: 1,
-    }));
+    const itemsPayload = [{productId: id,qty: qty,}];
     // 2) coins summary
     const coinsPayload = {
       totalGecko,
