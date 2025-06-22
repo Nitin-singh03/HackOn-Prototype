@@ -12,7 +12,7 @@ function ProductCard({ product, onAddToCart, adding, added }) {
       {/* Link wraps image + title to go to details page */}
       <Link to={`/product/${product._id}`} className="product-card__link">
         <img
-          src={product.image}
+          src={product.image_url}
           alt={product.name}
           className="product-card__image"
         />

@@ -103,12 +103,6 @@ const AmazonNavigationBar = () => {
                 <div className="glazed-shimmer"></div>
               </a>
             </li>
-            <li className="nav-item more-dropdown">
-              <a href="#" className="nav-link">
-                <span>More</span>
-                <ChevronDown size={12} />
-              </a>
-            </li>
           </ul>
         </div>
 
