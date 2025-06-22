@@ -48,7 +48,7 @@ function Productgreen({
     <div className="productgreen clickable-card">
       {/* IMAGE LINK */}
       <Link to={`/product/${product._id}`}>
-        <img src={product.image} alt={product.name} className="pg-image" />
+        <img src={product.image_url} alt={product.name} className="pg-image" />
       </Link>
 
       {/* TITLE LINK */}

@@ -10,7 +10,7 @@ import Login from "./Component/Login.jsx";
 
 // Green theme components
 import Homegreen from "./Component/Homegreen.jsx";
-import NavBarg from "./Component/NavBargreen.jsx";
+import NavBarg from "./Component/navbargreen.jsx";
 
 // Pages & Sections
 import EducationSection from "./Component/Educationsection.jsx";
