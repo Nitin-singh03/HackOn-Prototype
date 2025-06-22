@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../Css/navbargreen.css';
 import { Menu, ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AmazonNavigationBar = () => {
   const [showPopover, setShowPopover] = useState(false);
@@ -62,57 +63,59 @@ const AmazonNavigationBar = () => {
         <div className="amazon-nav-section">
           <ul className="amazon-nav-list">
             <li className="nav-item">
-              <a href="/green" className="nav-link home-link">
+              <Link to="/green" className="nav-link home-link">
                 <Menu size={14} />
                 <span>All</span>
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Today's Deals</a>
+              <Link to="#" className="nav-link">Today's Deals</Link>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Amazon Pay</a>
+              <Link to="#" className="nav-link">Amazon Pay</Link>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Amazon miniTV</a>
+              <Link to="#" className="nav-link">Amazon miniTV</Link>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Personal Care</a>
+              <Link to="#" className="nav-link">Personal Care</Link>
             </li>
             <li className="nav-item glazed-item">
-              <a href="/redeem" className="nav-link glazed-link">
+              <Link to="/redeem" className="nav-link glazed-link">
                 <span className="glazed-text">Redeem Coins</span>
                 <div className="glazed-shimmer"></div>
-              </a>
+              </Link>
             </li>
             <li className="nav-item glazed-item">
-              <a href="/return" className="nav-link glazed-link">
+              <Link to="/return" className="nav-link glazed-link">
                 <span className="glazed-text">Return Packging boxes</span>
                 <div className="glazed-shimmer"></div>
-              </a>
+              </Link>
             </li>
             <li className="nav-item glazed-item">
-              <a href="/education" className="nav-link glazed-link">
+              <Link to="/education" className="nav-link glazed-link">
                 <span className="glazed-text">Educational Section</span>
                 <div className="glazed-shimmer"></div>
-              </a>
+              </Link>
             </li>
             <li className="nav-item glazed-item">
-              <a href="/sustainability" className="nav-link glazed-link">
+              <Link to="/sustainability" className="nav-link glazed-link">
                 <span className="glazed-text">Sustainability Reports</span>
                 <div className="glazed-shimmer"></div>
-              </a>
+              </Link>
             </li>
           </ul>
+
         </div>
 
         <div className='popover-trigger-nav'>
-          <a href="/green" style={{textDecoration: 'none'}}>
+          <Link to="/green" style={{ textDecoration: 'none' }}>
             <button id='itemToTrack' className="greenovation-button">
               <span className="button-text">Greenovation Zone</span>
               <div className="button-shimmer"></div>
             </button>
-          </a>
+          </Link>
+
           {showPopover && (
             <div className='popover-content-nav'>
               <div className='popover-triangle'></div>
