@@ -400,7 +400,7 @@ export default function ProductDetails() {
                 </div>
                 
                 <div className="alt-image-container">
-                  <img src={alt.image_url} alt={alt.name} className="alt-image" />
+                  <img src={alt.image} alt={alt.name} className="alt-image" />
                   <div className="alt-overlay">
                     <span className="view-product">View Product</span>
                   </div>
