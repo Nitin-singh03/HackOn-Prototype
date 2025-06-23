@@ -15,7 +15,7 @@ import NavBarg from "./Component/navbargreen.jsx";
 import EducationSection from "./Component/Educationsection.jsx";
 import SustainabilityReportsSection from "./Component/Sustainability.jsx";
 import SellerSection from "./Component/SellerSection.jsx";
-import NavBar from  "./Component/navbar.jsx";
+// import NavBar from  "./Component/navbar.jsx";
 
 // Utility & Feedback
 import Footer from "./Component/Footer.jsx";

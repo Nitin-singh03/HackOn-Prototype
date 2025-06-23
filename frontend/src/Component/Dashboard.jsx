@@ -1,4 +1,3 @@
-// File: AmazonGreenDashboard.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 const API_BASE = import.meta.env.VITE_BACKEND_URL;
@@ -8,7 +7,9 @@ import {
   TreeDeciduous as Tree,
   Gift,
   TrendingUp,
-  PieChart as PieIcon
+  PieChart as PieIcon,
+  Award,
+  Leaf
 } from 'lucide-react';
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
@@ -40,7 +41,7 @@ const gradeDistribution = [
   { name: "B", value: 20 },
   { name: "C", value: 10 }
 ];
-const COLORS = ['#4CAF50', '#2196F3', '#FFC107', '#FF5722'];
+const COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444'];
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
   const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
@@ -52,8 +53,8 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
       fill="#fff"
       textAnchor="middle"
       dominantBaseline="central"
-      fontSize={14}
-      fontWeight="bold"
+      fontSize={12}
+      fontWeight="600"
     >
       {`${(percent * 100).toFixed(0)}%`}
     </text>
@@ -124,46 +125,65 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <h1>Amazon Green Dashboard</h1>
+      <div className="dashboard-header">
+        <h1 className="dashboard-title">
+          <Leaf className="title-icon" />
+          Amazon Green Dashboard
+        </h1>
+        <p className="dashboard-subtitle">Track your environmental impact and rewards</p>
+      </div>
 
       {/* Top Cards: Level, Gecko Points (with redeem button), Trees Planted */}
       <div className="top-cards">
         <div className="card level-card">
+          <div className="card-header">
+            <h3>Current Level</h3>
+          </div>
           <div className="level-content">
-            <span className="level-icon">{currentLevel.icon}</span>
-            <div className="level-text">
-              <h2>{currentLevel.name}</h2>
-              <small>Next: {currentLevel.max} TP</small>
+            <div className="level-display">
+              <span className="level-icon">{currentLevel.icon}</span>
+              <div className="level-text">
+                <h2>{currentLevel.name}</h2>
+                <small>Next: {currentLevel.max} TP</small>
+              </div>
             </div>
-            <div className="progress-bar">
-              <div className="fill" style={{ width: `${progress}%` }} />
+            <div className="progress-container">
+              <div className="progress-bar">
+                <div className="fill" style={{ width: `${progress}%` }} />
+              </div>
+              <span className="progress-text">{Math.round(progress)}%</span>
             </div>
           </div>
         </div>
 
         <div className="card points-card">
-          <div className="points-content">
-            <img src="/images/gecko_coin.png" alt="Gecko Coin" className="gecko-icon" />
-            <div className="points-text">
-              <h2>Gecko Coins</h2>
-              <p className="points-value">{geckoPoints} pts</p>
-            </div>
+          <div className="card-header">
+            <h3>Gecko Coins</h3>
           </div>
-          <button
-            className="redeem-button"
-            onClick={handleRedeem}
-            disabled={isRedeeming || geckoPoints <= 0}
-          >
-            {isRedeeming ? 'Redeeming...' : 'Redeem'}
-          </button>
+          <div className="points-content">
+            <div className="points-display">
+              <img src="/images/gecko_coin.png" alt="Gecko Coin" className="gecko-icon" />
+              <p className="points-value">{geckoPoints}</p>
+            </div>
+            <button
+              className="redeem-button"
+              onClick={handleRedeem}
+              disabled={isRedeeming || geckoPoints <= 0}
+            >
+              {isRedeeming ? 'Redeeming...' : 'Redeem Now'}
+            </button>
+          </div>
         </div>
 
         <div className="card trees-card">
+          <div className="card-header">
+            <h3>Trees Planted</h3>
+          </div>
           <div className="trees-content">
-            <Tree className="icon" />
-            <div>
-              <h2>Trees Planted</h2>
+            <Tree className="trees-icon" />
+            <div className="trees-display">
               <p className="points-value">{treesPlanted}</p>
+              <small>Making a difference</small>
             </div>
           </div>
         </div>
@@ -171,32 +191,60 @@ export default function Dashboard() {
 
       {/* Middle Section: Certificates & Eco Stats */}
       <div className="middle-section">
-        <div className="certificates card">
-          <h3>Certificates</h3>
+        <div className="card certificates">
+          <div className="card-header">
+            <h3>
+              <Award className="header-icon" />
+              Certificates
+            </h3>
+          </div>
           <div className="cert-list">
             {certificates.length > 0 ? (
               certificates.map(c => (
                 <div key={c.id} className="cert-item">
                   <div className="cert-info">
-                    <span>{c.location}</span>
-                    <small>{c.date}</small>
+                    <span className="cert-location">{c.location}</span>
+                    <small className="cert-date">{c.date}</small>
                   </div>
-                  <a href={c.url} download className="download-button">Download</a>
+                  <a href={c.url} download className="download-button">
+                    Download
+                  </a>
                 </div>
               ))
             ) : (
-              <p>No certificates yet</p>
+              <div className="empty-state">
+                <Award className="empty-icon" />
+                <p>No certificates yet</p>
+                <small>Plant more trees to earn certificates</small>
+              </div>
             )}
           </div>
         </div>
 
-        <div className="eco-stats card">
-          <h3>Eco Stats</h3>
+        <div className="card eco-stats">
+          <div className="card-header">
+            <h3>
+              <Leaf className="header-icon" />
+              Eco Stats
+            </h3>
+          </div>
           <div className="stats-grid">
-            <div><strong>61kg</strong><span>CO₂ Saved</span></div>
-            <div><strong>2.4kg</strong><span>Plastic Avoided</span></div>
-            <div><strong>38%</strong><span>Recycled</span></div>
-            <div><strong>2</strong><span>Group Buys</span></div>
+            <div className="stat-item">
+              <strong>61kg</strong>
+              <span>CO₂ Saved</span>
+            </div>
+            <div className="stat-item">
+              <strong>2.4kg</strong>
+              <span>Plastic Avoided</span>
+            </div>
+            <div className="stat-item">
+              <strong>38%</strong>
+              <span>Recycled</span>
+            </div>
+            <div className="stat-item">
+              <strong>2</strong>
+              <span>Group Buys</span>
+            </div>
           </div>
         </div>
       </div>
@@ -204,44 +252,119 @@ export default function Dashboard() {
       {/* Bottom Charts: CO₂ Reduction, Eco-Grade Distribution, Cumulative CO₂ */}
       <div className="bottom-charts">
         <div className="card chart-card">
-          <h3><TrendingUp /> CO₂ Reduction</h3>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={co2Data}>
-              <XAxis dataKey="name" />
-              <YAxis unit="kg" />
-              <Tooltip formatter={v => `${v}kg`} />
-              <Bar dataKey="CO2" fill="#4CAF50" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="card-header">
+            <h3>
+              <TrendingUp className="header-icon" />
+              CO₂ Reduction
+            </h3>
+          </div>
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart data={co2Data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <XAxis 
+                  dataKey="name" 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6B7280' }}
+                />
+                <YAxis 
+                  unit="kg" 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6B7280' }}
+                />
+                <Tooltip 
+                  formatter={v => [`${v}kg`, 'CO₂ Saved']}
+                  contentStyle={{
+                    backgroundColor: '#fff',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+                <Bar dataKey="CO2" fill="#10B981" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
+
         <div className="card chart-card">
-          <h3><PieIcon /> Eco-Grade Distribution</h3>
-          <ResponsiveContainer width="100%" height={200}>
-            <PieChart>
-              <Pie
-                data={gradeDistribution}
-                dataKey="value"
-                labelLine={false}
-                label={renderCustomizedLabel}
-              >
-                {gradeDistribution.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip formatter={v => `${v}%`} />
-            </PieChart>
-          </ResponsiveContainer>
+          <div className="card-header">
+            <h3>
+              <PieIcon className="header-icon" />
+              Eco-Grade Distribution
+            </h3>
+          </div>
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                <Pie
+                  data={gradeDistribution}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  dataKey="value"
+                  labelLine={false}
+                  label={renderCustomizedLabel}
+                >
+                  {gradeDistribution.map((_, i) => (
+                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  formatter={v => [`${v}%`, 'Grade']}
+                  contentStyle={{
+                    backgroundColor: '#fff',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
+
         <div className="card chart-card">
-          <h3>Cumulative CO₂</h3>
-          <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={cumulative}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip formatter={v => `${v}kg`} />
-              <Line dataKey="total" stroke="#22C55E" />
-            </LineChart>
-          </ResponsiveContainer>
+          <div className="card-header">
+            <h3>
+              <TrendingUp className="header-icon" />
+              Cumulative CO₂
+            </h3>
+          </div>
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={240}>
+              <LineChart data={cumulative} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <XAxis 
+                  dataKey="name" 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6B7280' }}
+                />
+                <YAxis 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6B7280' }}
+                />
+                <Tooltip 
+                  formatter={v => [`${v}kg`, 'Total CO₂ Saved']}
+                  contentStyle={{
+                    backgroundColor: '#fff',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+                <Line 
+                  dataKey="total" 
+                  stroke="#10B981" 
+                  strokeWidth={3}
+                  dot={{ fill: '#10B981', strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, stroke: '#10B981', strokeWidth: 2 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </div>

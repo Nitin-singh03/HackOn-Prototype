@@ -80,7 +80,7 @@ export default function Redeem() {
 
   return (
     <div className="redeem-container">
-      <h1>Redeem Your Gecko Points</h1>
+      <h1>Redeem Your Gecko Coins</h1>
       <div className="redeem-grid">
         {REDEEM_OPTIONS.map(opt => (
           <div key={opt.id} className="redeem-card">

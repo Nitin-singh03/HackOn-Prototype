@@ -21,29 +21,82 @@ const topics = [
         <p>
           <strong>EcoScore</strong> is a sustainability rating (0–100) quantifying a product's environmental impact.
         </p>
-        <pre>
-EcoScore = (ComponentScore × 100) + min(CertificationBonus, 10)
-        </pre>
-        <h4>ComponentScore Breakdown</h4>
+        <h4>Data Inputs</h4>
         <ul>
-          <li>Material Impact (30%)</li>
-          <li>Manufacturing Emissions (25%)</li>
-          <li>Transportation Emissions (20%)</li>
-          <li>Packaging Sustainability (15%)</li>
-          <li>Sustainability Bonus (10%)</li>
+          <li>Category (e.g., apparel, electronics)</li>
+          <li>Materials (e.g., 30% recycled PET)</li>
+          <li>Packaging type & weight</li>
+          <li>Brand & dimensions</li>
         </ul>
-        <h4>Certification Bonuses (cap 10 pts)</h4>
-        <table>
-          <thead>
-            <tr><th>Certification</th><th>Pts</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>ISO 14001</td><td>+5</td></tr>
-            <tr><td>Energy Star</td><td>+3</td></tr>
-            <tr><td>EU Ecolabel</td><td>+4</td></tr>
-            <tr><td>FSC</td><td>+3</td></tr>
-          </tbody>
-        </table>
+        <p><strong>Fallback</strong>: Missing data uses industry averages from LCA databases (e.g., Ecoinvent).</p>
+
+  
+        <h4>2. Impact Factors</h4>
+        <h5>a) Material Recycle Score</h5>
+        <p>Evaluates sustainable material use:</p>
+        <pre>
+  MatScore = 0.6 × (1 - MaterialEF) + 0.4 × RecycledContentRatio
+  </pre>
+        <p>Example: 50% recycled aluminum (low EF) scores higher than virgin plastic.</p>
+  
+        <h5>b) Manufacturing & Transport Emissions</h5>
+        <p><strong>Production Emissions:</strong></p>
+        <pre>
+  CO₂e_production = EnergyUsed_kWh × GridEmissionFactor
+  </pre>
+        <p><strong>Transport Emissions:</strong></p>
+        <pre>
+  CO₂e_transport = Distance_km × Weight_t × ModeFactor
+  </pre>
+        <p>e.g., sea freight: 0.01 kg CO₂e/tkm; truck: 0.1 kg CO₂e/tkm.</p>
+  
+        <h5>c) Sustainability Bonus</h5>
+        <p>Bonuses for eco-features (Biodegradable packaging, renewable materials, take-back programs) add +0.1–0.3 each.</p>
+  
+        <h4>Step 3: Weighted Aggregation</h4>
+        <p>Component Weightings:</p>
+        <ul>
+          <li>Material: 30%</li>
+          <li>Manufacturing: 25%</li>
+          <li>Transport: 20%</li>
+          <li>Packaging: 15%</li>
+          <li>Sustainability Bonus: 10%</li>
+        </ul>
+        <pre>
+  ComponentScore =
+    0.30×MatScore +
+    0.25×(1 - CO₂e_production/MaxProdEmissions) +
+    0.20×(1 - CO₂e_transport/MaxTransEmissions) +
+    0.15×PackagingScore +
+    0.10×SustainabilityBonus
+  </pre>
+  
+        <h4>Step 4: Certification Bonuses (cap 10 pts)</h4>
+        <ul>
+          <li>ISO 14001: +5</li>
+          <li>Energy Star: +3</li>
+          <li>Fair Trade: +2</li>
+          <li>EU Ecolabel: +4</li>
+        </ul>
+        <p><strong>Cap:</strong> +10 points max.</p>
+  
+        <h4>Step 5: Final EcoScore & Grade</h4>
+        <pre>
+  EcoScore = (ComponentScore × 100) + min(CertificationBonus, 10)
+  </pre>
+  <h5>Grade Scale</h5>
+      <table>
+        <thead>
+          <tr><th>Grade</th><th>Score Range</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A+</td><td>90–100</td><td>Excellent sustainability</td></tr>
+          <tr><td>A</td><td>80–89</td><td>Very good sustainability</td></tr>
+          <tr><td>B</td><td>70–79</td><td>Good sustainability</td></tr>
+          <tr><td>C</td><td>60–69</td><td>Moderate sustainability</td></tr>
+          <tr><td>D</td><td>40</td><td>Poor sustainability</td></tr>
+        </tbody>
+      </table>
       </>
     ),
   },
@@ -279,7 +332,7 @@ export default function EducationSection() {
             </button>
             <div
               className={`edu-content ${openIndex === i ? "expanded" : ""}`} 
-              style={{ maxHeight: openIndex === i ? "1200px" : "0px" }}
+              style={{ maxHeight: openIndex === i ? "2000px" : "0px" }}
             >
               {topic.content}
             </div>
