@@ -1,4 +1,4 @@
-# 🛍️ Amazon Prototype - Team OG
+# 🛍️ Amazon HackOn Prototype - Team OG
 
 ## 🔗 **[Live Demo](#)** https://hack-on-prototype-t8vt.vercel.app/
 
